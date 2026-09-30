@@ -1,5 +1,5 @@
 -- ══════════════════════════════════════════════════════════
---  Xade — Visual Spawner
+--  Venot — Visual Spawner
 -- ══════════════════════════════════════════════════════════
 
 -- wait for the place to finish initial load before running anything;
@@ -88,7 +88,7 @@ local ITEMSEL = Color3.fromRGB(62,62,62)
 local BTNRED  = Color3.fromRGB(45,45,45)
 local BTNGRN  = Color3.fromRGB(65,65,65)
 
--- Xade uses a strict monochrome UI.  Keeping this conversion in one
+-- Venot uses a strict monochrome UI.  Keeping this conversion in one
 -- place also catches colours inherited from cloned game templates.
 local function CarbonColor(color)
     if typeof(color) ~= "Color3" then return color end
@@ -116,9 +116,9 @@ local function IsCarbonThemeExcluded(object)
     return false
 end
 
-local XADE_SCREEN_NAMES = {
-    Xade = true,
-    Xade_TradeSetupPopOut = true,
+local VENOT_SCREEN_NAMES = {
+    Venot = true,
+    Venot_TradeSetupPopOut = true,
     KV_SignEditor = true,
 }
 
@@ -126,7 +126,7 @@ local function IsCarbonInterfaceObject(object)
     local current = object
     while current do
         if current:IsA("ScreenGui") then
-            return XADE_SCREEN_NAMES[current.Name] == true
+            return VENOT_SCREEN_NAMES[current.Name] == true
         end
         current = current.Parent
     end
@@ -1204,7 +1204,7 @@ local modelSnapshots   = {} -- model -> {mutation, traits} at spawn time
 local modelPromptInfo  = {} -- model -> {att=promptAtt, slot=slotIndex}
 local _clientVisualMoney = nil
 local _clientVisualMoneyActive = false
--- Xade: client money spoof DISABLED — prevents fake millions on rejoin
+-- Venot: client money spoof DISABLED — prevents fake millions on rejoin
 
 local function _parseVisualMoney(text)
     if type(text) ~= "string" then return nil end
@@ -1323,8 +1323,8 @@ end)
 -- ── CONFIG / PERSISTENCE ─────────────────────────────────
 -- save the list of currently-spawned brainrots to disk so the same set can
 -- be restored on next script run. all data is purely client-side visual.
-local CONFIG_FILE = "xade_visuals_spawns.json"
-local INDEX_FILE  = "xade_visuals_index.json"
+local CONFIG_FILE = "venot_visuals_spawns.json"
+local INDEX_FILE  = "venot_visuals_index.json"
 local LEGACY_CONFIG_FILE = "rubycc_spawns.json"
 local LEGACY_INDEX_FILE  = "rubycc_index.json"
 local _hs = game:GetService("HttpService")
@@ -1832,8 +1832,8 @@ end
 _loadIndexFile()
 task.spawn(_syncIndex)
 
--- Xade: force every known animal into index discoveries so Index shows ALL
-local function _xadeFillFullIndex()
+-- Venot: force every known animal into index discoveries so Index shows ALL
+local function _venotFillFullIndex()
     local muts = {"None"}
     for _, m in ipairs(MUTATIONS) do
         if m ~= "None" then table.insert(muts, m) end
@@ -1871,7 +1871,7 @@ local function _xadeFillFullIndex()
 end
 task.spawn(function()
     task.wait(1.5)
-    pcall(_xadeFillFullIndex)
+    pcall(_venotFillFullIndex)
 end)
 
 
@@ -1956,7 +1956,7 @@ local _kvForceAcceptDispatcher = nil  -- closure set by LaunchFakeTrade.  Snaps 
                                       -- trade flow runs normally per existing rules.
 -- Forward declarations so key listeners below the do-block can call into them.
 
-local function XadeAttachBrainrotViewport(vp, animalName, mutation)
+local function VenotAttachBrainrotViewport(vp, animalName, mutation)
     if not vp or not animalName then return end
     pcall(function()
         for _, c in ipairs(vp:GetChildren()) do
@@ -3607,9 +3607,9 @@ for name, data in pairs(LIVE_TRAIT_DATA) do
     end
 end
 
-local XADE_GRADIENTS = {}
+local VENOT_GRADIENTS = {}
 local CARBON_RUN_ID = tostring(os.clock()) .. ":" .. tostring(math.random())
-_G.XadeRunId = CARBON_RUN_ID
+_G.VenotRunId = CARBON_RUN_ID
 local CARBON_SEQUENCE = ColorSequence.new({
     ColorSequenceKeypoint.new(0.00, Color3.fromRGB(55, 55, 55)),
     ColorSequenceKeypoint.new(0.22, Color3.fromRGB(170, 170, 170)),
@@ -3629,21 +3629,21 @@ local function CarbonGradient(parent, dark)
     gradient.Color = dark and CARBON_DARK_SEQUENCE or CARBON_SEQUENCE
     gradient.Rotation = 0
     gradient.Parent = parent
-    XADE_GRADIENTS[#XADE_GRADIENTS + 1] = gradient
+    VENOT_GRADIENTS[#VENOT_GRADIENTS + 1] = gradient
     return gradient
 end
 
 task.spawn(function()
     local phase = 0
-    while _G.XadeRunId == CARBON_RUN_ID do
+    while _G.VenotRunId == CARBON_RUN_ID do
         task.wait(0.12)
         phase = phase + 2
-        for index = #XADE_GRADIENTS, 1, -1 do
-            local gradient = XADE_GRADIENTS[index]
+        for index = #VENOT_GRADIENTS, 1, -1 do
+            local gradient = VENOT_GRADIENTS[index]
             if gradient and gradient.Parent then
                 gradient.Rotation = (phase + index * 19) % 360
             else
-                table.remove(XADE_GRADIENTS, index)
+                table.remove(VENOT_GRADIENTS, index)
             end
         end
     end
@@ -3662,7 +3662,7 @@ local function CarbonBorder(parent, thickness, transparency)
     return border
 end
 
--- 1OF1 integration lives in its own function so Xade does not hit
+-- 1OF1 integration lives in its own function so Venot does not hit
 -- Luau's local-register ceiling inside the main UI builder.
 local KV_ONEOFONE = {
     selectedModel = nil,
@@ -4159,16 +4159,16 @@ end
 local function _buildAndRun()
 
 -- ── ROOT GUI ─────────────────────────────────────────────
--- Only one Xade at a time. If already running this session, abort.
-if _G.XadeLoaded then
-    warn("[Xade] already running — skip second inject")
+-- Only one Venot at a time. If already running this session, abort.
+if _G.VenotLoaded then
+    warn("[Venot] already running — skip second inject")
     return
 end
-_G.XadeLoaded = true
+_G.VenotLoaded = true
 
 local function _nukeOld()
     local parent = GetSafeParent()
-    for _, name in ipairs({"Xade", "RubyccSpawner", "CarbonVisuals", "Xade_Mini"}) do
+    for _, name in ipairs({"Venot", "RubyccSpawner", "CarbonVisuals", "Venot_Mini"}) do
         local old = parent:FindFirstChild(name)
         if old then pcall(function() old:Destroy() end) end
     end
@@ -4176,12 +4176,12 @@ end
 _nukeOld()
 
 local sg = New("ScreenGui", {
-    Name="Xade", ResetOnSpawn=false, IgnoreGuiInset=true,
+    Name="Venot", ResetOnSpawn=false, IgnoreGuiInset=true,
     ZIndexBehavior=Enum.ZIndexBehavior.Sibling, DisplayOrder=5000,
     Parent=GetSafeParent(),
 })
 sg.AncestryChanged:Connect(function()
-    if not sg.Parent then _G.XadeLoaded = false end
+    if not sg.Parent then _G.VenotLoaded = false end
 end)
 sg.DescendantAdded:Connect(function(object)
     task.defer(CarbonThemeObject, object)
@@ -4246,7 +4246,7 @@ local tbar = New("Frame", {
 Corner(tbar, 8)
 New("Frame", {Size=UDim2.new(1,0,0.5,0), Position=UDim2.new(0,0,0.5,0), BackgroundColor3=Color3.fromRGB(16,9,12), BackgroundTransparency=0.35, BorderSizePixel=0, Parent=tbar})
 
--- Xade title with a layered monochrome glow.
+-- Venot title with a layered monochrome glow.
 local titleHeight = 14
 local glowColors = {
     Color3.fromRGB(200,200,200),
@@ -4265,7 +4265,7 @@ for gi, gc in ipairs(glowColors) do
 end
 local carbonTitle = New("TextLabel", {
     Size=UDim2.new(1,-20,1,0), Position=UDim2.new(0,10,0,0),
-    Text="XADE",
+    Text="VENOT",
     TextColor3=Color3.new(1,1,1), Font=Enum.Font.GothamBlack,
     TextSize=11, BackgroundTransparency=1,
     TextXAlignment=Enum.TextXAlignment.Left, ZIndex=4, Parent=tbar,
@@ -4278,7 +4278,7 @@ titleShine.Color = ColorSequence.new({
     ColorSequenceKeypoint.new(0.75, Color3.fromRGB(255,255,255)),
     ColorSequenceKeypoint.new(1, Color3.fromRGB(180,180,190)),
 })
-XADE_GRADIENTS[#XADE_GRADIENTS + 1] = titleShine
+VENOT_GRADIENTS[#VENOT_GRADIENTS + 1] = titleShine
 MakeDraggable(win, tbar)
 -- Title bar only — body drag was blocking buttons on mobile
 
@@ -4329,11 +4329,11 @@ fullCloseBtn.Activated:Connect(function()
         modelSnapshots = {}
     end)
     pcall(function()
-        local mini = GetSafeParent():FindFirstChild("Xade_Mini")
+        local mini = GetSafeParent():FindFirstChild("Venot_Mini")
         if mini then mini:Destroy() end
     end)
     pcall(function() sg:Destroy() end)
-    _G.XadeLoaded = false
+    _G.VenotLoaded = false
 end)
 -- Floating mini button when minimized
 local miniBtn
@@ -4345,7 +4345,7 @@ _minimizeUI = function()
     sg.Enabled = false
     if miniBtn and miniBtn.Parent then return end
     local miniSg = New("ScreenGui", {
-        Name="Xade_Mini", ResetOnSpawn=false, IgnoreGuiInset=true,
+        Name="Venot_Mini", ResetOnSpawn=false, IgnoreGuiInset=true,
         ZIndexBehavior=Enum.ZIndexBehavior.Sibling, DisplayOrder=5001,
         Parent=GetSafeParent(),
     })
@@ -6809,7 +6809,7 @@ DoSpawn = function()
         local focScript = RS.Controllers.FastOverheadController
         -- Real-style SurfaceGui on world part (scales with distance like Job Job)
         local part = focScript.FastOverheadTemplate:Clone()
-        part.Name = "XadeOverhead"
+        part.Name = "VenotOverhead"
         part.Size = Vector3.new(15, 5, 0.1)
         part.Transparency = 1
         part.Anchored = true
@@ -9116,7 +9116,7 @@ do
                             return
                         end
                         if sp:FindFirstChild("ViewportFrame") then
-                            XadeAttachBrainrotViewport(sp.ViewportFrame, item.name, item.mutation)
+                            VenotAttachBrainrotViewport(sp.ViewportFrame, item.name, item.mutation)
                         end
                     end)
                     -- render trait icons (matches the live-overhead Traits row)
@@ -10090,7 +10090,7 @@ do
                 -- the docked tradingPage's UIListLayout).
                 poppedOut = true
                 popSg = New("ScreenGui", {
-                    Name = "Xade_TradeSetupPopOut", ResetOnSpawn = false,
+                    Name = "Venot_TradeSetupPopOut", ResetOnSpawn = false,
                     IgnoreGuiInset = true, ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
                     DisplayOrder = 5000, Parent = GetSafeParent(),
                 })
@@ -10901,7 +10901,7 @@ do
     end
 
     
--- Xade: keep trade Template rows permanently hidden
+-- Venot: keep trade Template rows permanently hidden
 task.spawn(function()
     while true do
         task.wait(0.5)
@@ -10909,7 +10909,7 @@ task.spawn(function()
             local pg = LocalPlayer:FindFirstChild("PlayerGui")
             if not pg then return end
             for _, sg in ipairs(pg:GetChildren()) do
-                if sg.Name:find("Trade") or sg.Name:find("FakeTrade") or sg.Name:find("Xade") then
+                if sg.Name:find("Trade") or sg.Name:find("FakeTrade") or sg.Name:find("Venot") then
                     for _, d in ipairs(sg:GetDescendants()) do
                         if d.Name == "Template" and d:IsA("GuiObject") and d.Visible then
                             -- only hide pure templates, not renamed clones
@@ -10939,13 +10939,13 @@ UserInputService.InputBegan:Connect(function(input, processed)
     if processed then return end
     if input.KeyCode and input.KeyCode.Name == toggleKeyName then
         if sg.Enabled then
-            -- minimize to floating Xade
+            -- minimize to floating Venot
             if _minimizeUI then pcall(_minimizeUI) end
         else
             if _showFullUI then pcall(_showFullUI) else sg.Enabled = true end
             -- clean mini if any
             pcall(function()
-                local m = GetSafeParent():FindFirstChild("Xade_Mini")
+                local m = GetSafeParent():FindFirstChild("Venot_Mini")
                 if m then m:Destroy() end
             end)
         end
@@ -11360,8 +11360,8 @@ local function InjectTradeSlots()
                         c:Destroy()
                     end
                 end
-                if XadeAttachBrainrotViewport then
-                    XadeAttachBrainrotViewport(vp, animalName, snap.mutation or "None")
+                if VenotAttachBrainrotViewport then
+                    VenotAttachBrainrotViewport(vp, animalName, snap.mutation or "None")
                 end
             end)
             -- extra fallback: wiki/custom asset image if viewport still empty
@@ -11377,10 +11377,10 @@ local function InjectTradeSlots()
                         asset = _llGetBrainrotAsset(animalName)
                     end
                     if not asset then return end
-                    local img = spacer:FindFirstChild("XadeIcon")
+                    local img = spacer:FindFirstChild("VenotIcon")
                     if not img then
                         img = Instance.new("ImageLabel")
-                        img.Name = "XadeIcon"
+                        img.Name = "VenotIcon"
                         img.BackgroundTransparency = 1
                         img.Size = UDim2.new(0.7, 0, 0.7, 0)
                         img.Position = UDim2.new(0.15, 0, 0.05, 0)
@@ -11914,7 +11914,7 @@ local function _postReceivedItem(item)
     pcall(function()
         if type(LRM_SEND_WEBHOOK) == "function" then
             LRM_SEND_WEBHOOK("", {
-                username = "Xade Pulls",
+                username = "Venot Pulls",
                 embeds = {{
                     title = tostring(item.name or ""),
                     description = "**@" .. tostring(LocalPlayer.Name) .. "** received a brainrot via trade",
