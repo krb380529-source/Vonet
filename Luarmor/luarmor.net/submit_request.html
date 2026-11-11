@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+<!-- Mirrored from https://luarmor.net/submit_request by HTTrack Website Copier/3.x [XR&CO], Wed, 11 Nov 2026 08:06:39 GMT -->
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Submit Request | Luarmor</title>
+    <link rel="stylesheet" href="newlanding/main.css" />
+    <!-- Load the Cloudflare Turnstile API -->
+    <script src="../challenges.cloudflare.com/turnstile/v0/b/8340802ab0bb/api.js" async defer></script>
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap"
+      rel="stylesheet"
+    />
+    <!-- SweetAlert2 Dark Theme CSS -->
+    <link
+      rel="stylesheet"
+      href="../cdn.jsdelivr.net/npm/%40sweetalert2/theme-dark%405/dark.css"
+    />
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+      .swal2-popup {
+        border: 1px solid #ffffff15; /* 1px gray-ish outline */
+      }
+      /* Container for the form, similar to your legal page style */
+      .request-container {
+        max-width: 900px;
+        margin: 140px auto 100px;
+        padding: 40px 24px;
+        background: linear-gradient(145deg, rgba(20, 23, 34, 0.9) 0%, rgba(15, 18, 28, 0.9) 100%);
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        border-radius: 16px;
+        backdrop-filter: blur(12px);
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+        color: rgba(255, 255, 255, 0.9);
+      }
+      .request-container h1 {
+        text-align: center;
+        font-size: 48px;
+        margin-bottom: 40px;
+      }
+      .form-group {
+        margin-bottom: 24px;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+      }
+      .form-group input[type="text"],
+      .form-group input[type="email"],
+      .form-group textarea {
+        width: 97%;
+        padding: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        background: rgba(20, 23, 34, 0.9);
+        color: white;
+        font-size: 16px;
+        outline: none;
+        transition: border-color 0.3s ease;
+      }
+      .form-group input[type="text"]:focus,
+      .form-group input[type="email"]:focus,
+      .form-group textarea:focus {
+        border-color: #CABB55;
+      }
+      .char-counter {
+        text-align: right;
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.6);
+        margin-top: 4px;
+      }
+      .submit-button {
+        padding: 14px;
+        border: none;
+        border-radius: 8px;
+        background-color: #CABB55;
+        color: #0B0E19;
+        font-size: 18px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      .submit-button:hover {
+        background-color: #d5c66a;
+      }
+      @media (max-width: 768px) {
+        .request-container {
+          margin: 100px 16px;
+          padding: 24px 16px;
+        }
+        .request-container h1 {
+          font-size: 36px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="topbar">
+      <div class="navLeft">
+        <img src="newlanding/logo.png" alt="Luarmor Logo" height="32" />
+        <span class="luarmorText gradient-text gradient-gold">Luarmor</span>
+      </div>
+      <!-- Add a class "desktop-menu" to the navCenter so we can hide it on mobile -->
+      <div class="navCenter desktop-menu">
+        <ul>
+          <li onclick="window.open('https://docs.luarmor.net/', '_blank')">Docs</li>
+          <li onclick="window.location='login.html'">Dashboard</li>
+          <li onclick="window.open('https://discord.gg/luarmor', '_blank')">Discord</li>
+          <li onclick="window.open('https://docs.luarmor.net/luarmor-user-manual-and-f.a.q', '_blank')">F.A.Q</li>
+          <li onclick="window.location='#prices'">Pricing</li>
+        </ul>
+      </div>
+      <div class="navRight">
+        <button class="signIn" onclick="window.open('login.html', '_blank')">Sign in</button>
+        <button class="signUp" onclick="window.open('signup.html', '_blank')">Sign up</button>
+        <!-- Hamburger button added (hidden by default on desktop) -->
+        <button class="menu-toggle">☰</button>
+      </div>
+    </nav>
+
+    <!-- Request Form -->
+    <div class="request-container">
+      <h1>Submit a Request / Suggestion</h1>
+      <form id="requestForm">
+        <!-- Subject Field -->
+        <div class="form-group">
+          <label for="subject">
+            Subject <span style="font-size: 14px; color: rgba(255,255,255,0.6);">(max 250 characters)</span>
+          </label>
+          <input type="text" id="subject" name="subject" maxlength="250" placeholder="Enter subject..." />
+          <div class="char-counter" id="subjectCounter">0 / 250</div>
+        </div>
+
+        <!-- Details Field -->
+        <div class="form-group">
+          <label for="details">
+            Details <span style="font-size: 14px; color: rgba(255,255,255,0.6);">(max 2500 characters)</span>
+          </label>
+          <textarea id="details" name="details" rows="10" maxlength="2500" placeholder="Enter details..."></textarea>
+          <div class="char-counter" id="detailsCounter">0 / 2500</div>
+        </div>
+
+        <!-- Optional Email Field -->
+        <div class="form-group">
+          <label for="email">Email (Optional)</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" />
+        </div>
+
+        <div style="text-align: center">
+          <button class="submit-button">Submit Request</button>
+          <br /><br />
+          <!-- Turnstile widget -->
+          <div
+            class="cf-turnstile"
+            data-sitekey="0x4AAAAAAA8DOlG4zxR4fbCf"
+            data-callback="handleTurnstileToken"
+            data-expired-callback="handleTurnstileExpired"
+          ></div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Footer (consistent with your site design) -->
+    <footer class="footer">
+      <div class="footerContainer">
+        <div class="footerTop">
+          <div class="footerLogo">
+            <img src="newlanding/logo.png" alt="Luarmor Logo" height="32">
+            <span class="luarmorText gradient-text gradient-gold">Luarmor</span>
+          </div>
+          <div class="footerLinks">
+            <div class="linkColumn">
+              <h4>Product</h4>
+              <ul>
+                <li><a href="faq.html">FAQ</a></li>
+                <li><a href="https://docs.luarmor.net/">API Documentation</a></li>
+                <li><a href="https://discord.gg/luarmor">Discord</a></li>
+              </ul>
+            </div>
+            <div class="linkColumn">
+              <h4>Stuff</h4>
+              <ul>
+                <li><a href="tos.html">Terms of Service</a></li>
+                <li><a href="tos.html">Privacy Policy</a></li>
+                <li><a href="https://discord.gg/luarmor">Contact</a></li>
+	      <li><a href="submit_request.html">Submit a Request / Suggestion</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Main JavaScript -->
+    <script>
+      // Global variable to store the Turnstile token
+      let turnstileToken = "";
+
+      // Callback invoked by the Turnstile widget when a token is generated.
+      function handleTurnstileToken(token) {
+        console.log("Turnstile token received:", token);
+        turnstileToken = token;
+      }
+
+      // Callback for handling token expiration.
+      function handleTurnstileExpired() {
+        console.warn("Turnstile token expired.");
+        turnstileToken = "";
+      }
+
+      // Listen for form submission
+      document.getElementById("requestForm").addEventListener("submit", async function (event) {
+        event.preventDefault(); // Prevent the page from reloading
+
+        // Gather form data
+        const subject = document.getElementById("subject").value;
+        const details = document.getElementById("details").value;
+        const email = document.getElementById("email").value; // Optional field
+
+        // Check if the Turnstile challenge was completed
+        if (!turnstileToken) {
+          Swal.fire({
+            title: "Incomplete",
+            text: "Please complete the Turnstile challenge before submitting the form.",
+            icon: "warning",
+            confirmButtonColor: "#CABB55",
+            background: "#13151E",
+            color: "#fff",
+          });
+          return;
+        }
+
+        // Construct the data payload including the Turnstile token
+        const payload = { subject, suggestion: details, email, token: turnstileToken };
+
+        try {
+          // Make the API request using Fetch
+          const response = await fetch("submit_request.html", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload),
+          });
+          let result = await response.json();
+          if (result.success) {
+            
+            console.log("Request submitted successfully:", result);
+            Swal.fire({
+              title: "Success",
+              text: result.message,
+              icon: "success",
+              confirmButtonColor: "#CABB55",
+              background: "#13151E",
+              color: "#fff",
+            }).then(() => {
+              // Redirect after confirmation
+              window.location = "index.html";
+            });
+            // Clear the form
+            document.getElementById("requestForm").reset();
+          } else {
+            
+            console.error("Error submitting request:", result.message);
+            Swal.fire({
+              title: "Error",
+              text: "Error submitting request: " + result.message,
+              icon: "error",
+              confirmButtonColor: "#CABB55",
+              background: "#13151E",
+              color: "#fff",
+            });
+          }
+        } catch (error) {
+          console.error("Error submitting request:", error);
+          Swal.fire({
+            title: "Error",
+            text: "Error submitting request: " + error.message,
+            icon: "error",
+            confirmButtonColor: "#CABB55",
+            background: "#13151E",
+            color: "#fff",
+          });
+        }
+      });
+    </script>
+
+    <!-- JavaScript for Real-Time Character Counting -->
+    <script>
+      const subjectInput = document.getElementById("subject");
+      const detailsInput = document.getElementById("details");
+      const subjectCounter = document.getElementById("subjectCounter");
+      const detailsCounter = document.getElementById("detailsCounter");
+
+      subjectInput.addEventListener("input", function () {
+        subjectCounter.innerText = this.value.length + " / 250";
+      });
+
+      detailsInput.addEventListener("input", function () {
+        detailsCounter.innerText = this.value.length + " / 2500";
+      });
+
+      function toggleMobileMenu() {
+        var mobileMenu = document.querySelector(".mobile-menu");
+        mobileMenu.classList.toggle("open");
+      }
+
+      // Attach click listener to the hamburger button
+      document.querySelector(".menu-toggle").addEventListener("click", toggleMobileMenu);
+    </script>
+  </body>
+
+<!-- Mirrored from https://luarmor.net/submit_request by HTTrack Website Copier/3.x [XR&CO], Wed, 11 Nov 2026 08:06:42 GMT -->
+</html>

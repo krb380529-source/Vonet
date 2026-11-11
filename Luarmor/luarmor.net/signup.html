@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from https://luarmor.net/signup by HTTrack Website Copier/3.x [XR&CO], Wed, 11 Nov 2026 08:05:32 GMT -->
+<head>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.html">
+    <link rel="icon" type="image/png" href="assets/img/favicon.png">
+    <title>
+        Luarmor | Sign Up
+    </title>
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+    <!-- Nucleo Icons -->
+    <link href="assets/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="assets/css/nucleo-svg.css" rel="stylesheet" />
+    <!-- Font Awesome Icons -->
+    <script src="faslib.js" crossorigin="anonymous"></script>
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+    <!-- CSS Files -->
+    <link id="pagestyle" href="assets/css/material-dashboard994f.css?v=3.0.2" rel="stylesheet" />
+    <!-- JQuery -->
+    <script src="../ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<!--
+     style="    
+overflow: hidden;
+transform: rotate(1deg);   
+background-color: #000;
+color: #fff;
+overflow-y: hidden;"
+
+-->
+
+<body id="actualbody" class="g-sidenav-show bg-gray-200 dark-version">
+
+    <main class="main-content  mt-0">
+        <div class="container position-sticky z-index-sticky top-0">
+            <div class="row">
+                <div class="col-12">
+                    <!-- Navbar -->
+                    <nav class="navbar navbar-expand-lg blur border-radius-xl top-0 z-index-3 shadow position-absolute my-3 py-2 start-0 end-0 mx-4 bg-gradient-dark">
+                        <div class="container-fluid ps-2 pe-0">
+                            <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3 " href="login.html">
+                                Luarmor
+                            </a>
+                            <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon mt-2">
+                        <span class="navbar-toggler-bar bar1"></span>
+                        <span class="navbar-toggler-bar bar2"></span>
+                        <span class="navbar-toggler-bar bar3"></span>
+                      </span>
+                    </button>
+                            <div class="collapse navbar-collapse" id="navigation">
+                                <ul class="navbar-nav mx-auto">
+                                    <li class="nav-item">
+                                        <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="login.html">
+                                            <i class="fa fa-chart-pie me-1" aria-hidden="true"></i> Dashboard
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link me-2" href="signup.html">
+                                            <i class="fas fa-key me-1" aria-hidden="true"></i> Register
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link me-2" href="https://docs.luarmor.net/docs/luarmor-api-documentation">
+                                            <i class="fas fa-code me-1" aria-hidden="true"></i> API Docs
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link me-2" href="faq.html">
+                                            <i class="fas fa-question-circle me-1" aria-hidden="true"></i> FAQ
+                                        </a>
+                                    </li>
+
+                                </ul>
+
+                            </div>
+                        </div>
+                    </nav>
+                    <!-- End Navbar -->
+                </div>
+            </div>
+        </div>
+        <div class="page-header align-items-start min-vh-100" style="background-image: url('https://images.unsplash.com/photo-1497294815431-9365093b7331?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1950&amp;q=80');">
+            <span class="mask bg-gradient-dark opacity-6"></span>
+            <div class="container my-auto">
+                <div class="row">
+                    <div class="col-lg-4 col-md-8 col-12 mx-auto">
+                        <div class="card z-index-0 fadeIn3 fadeInBottom">
+                            <h4 class="text-white font-weight-bolder text-center mt-2 mb-0" style="padding-top:10%">Register to Luarmor</h4>
+                            <div class="card-body">
+                                <form role="form" class="text-start">
+
+                                    <div class="input-group input-group-outline mb-3">
+                                        <label class="form-label">Email</label>
+                                        <input id="emailbox" class="form-control" style="color:#a1a1a1">
+                                    </div>
+                                    <p class="text-xs text-secondary mt-n2">* API key will be sent to this email address</p>
+                                    <div class="input-group input-group-outline mb-3">
+                                        <label class="form-label">Discord ID</label>
+                                        <input id="didbox" class="form-control" style="color:#a1a1a1">
+                                    </div>
+                                    <div class="input-group input-group-outline mb-3">
+                                        <label class="form-label">Invite Code</label>
+                                        <input id="invitebox" class="form-control" style="color:#a1a1a1">
+                                    </div>
+                                    <div class="alert alert-danger" role="alert" id="alertmsg" style="display:none">
+                                        Error occured
+                                    </div>
+                                    <div class="alert alert-success" role="alert" id="successmsg" style="display:none">
+                                        Success!
+                                    </div>
+                                    <div class="form-check form-check-info text-start ps-2">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" onclick="if (!actuallyReadTos) { 
+                                            if (confirm('Did you actually read the ToS? It is important')) {
+                                                actuallyReadTos = true;
+                                                $('#tosbox').prop('checked', true);
+                                            } else {
+                                                document.getElementById('flexCheckDefault').checked = false;
+                                                window.location = 'tos.html'
+                                            }
+                                         } ">
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                         I read and agree to the <a href="tos.html" class="font-weight-bolder">Terms of Service</a>
+                                        </label>
+                                    </div>
+                                    <div class="text-center">
+                                        <button type="button" class="btn bg-gradient-info w-100 my-4 mb-2" id="registerbtn">Register</button>
+                                    </div>
+                                    <p class="mt-4 text-sm text-center">
+                                        Don't have an invite code?
+                                        <a href="index.html#prices" class="text-info text-gradient font-weight-bold">Get one</a>
+                                    </p>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="footer position-absolute bottom-2 py-2 w-100">
+                <div class="container">
+                    <div class="row align-items-center justify-content-lg-between">
+                        <div class="col-12 col-md-6 my-auto">
+                            <div class="copyright text-center text-sm text-white text-lg-start">
+                                ©
+                                <script>
+                                    document.write(new Date().getFullYear())
+                                </script> Luarmor
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <ul class="nav nav-footer justify-content-center justify-content-lg-end">
+                                <li class="nav-item">
+                                    <a href="faq.html" class="nav-link text-white" target="_blank">FAQ</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="tos.html" class="nav-link text-white" target="_blank">Terms of Service</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="https://discord.gg/yHKAsA4ztv" class="nav-link text-white" target="_blank">Discord</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </main>
+
+    <!--   Core JS Files   -->
+    <script src="assets/js/core/popper.min.js"></script>
+    <script src="assets/js/core/bootstrap.min.js"></script>
+    <script src="assets/js/plugins/perfect-scrollbar.min.js"></script>
+    <script src="assets/js/plugins/smooth-scrollbar.min.js"></script>
+    <script src="assets/js/plugins/chartjs.min.js"></script>
+    <script>
+        var actuallyReadTos = false;
+        var win = navigator.platform.indexOf('Win') > -1;
+        if (win && document.querySelector('#sidenav-scrollbar')) {
+            var options = {
+                damping: '0.5'
+            }
+            Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+        }
+    </script>
+    <script>
+    </script>
+
+    <script>
+        $(function() {
+            $("form").submit(function() {
+                return false;
+            });
+        });
+        const Http = {
+            post: function(url, data, callback) {
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", url, callback != undefined);
+                xhr.setRequestHeader("Content-Type", "application/json");
+                if (callback != undefined) {
+                    xhr.onload = function() {
+                        callback(xhr.responseText);
+                    }
+                }
+                xhr.send(JSON.stringify(data));
+                if (!callback) {
+                    return xhr.responseText;
+                }
+            }
+        }
+
+        $("#registerbtn").click(function() {
+
+            $("#registerbtn").attr("disabled", true);
+            $("#registerbtn").html('<i class="fa fa-spinner fa-spin">  </i> Registering...');
+            var email = $("#emailbox").val();
+            var did = $("#didbox").val();
+            var invite = $("#invitebox").val();
+            if (email.length < 4 || did.length < 8 || invite.length < 8) {
+                $("#alertmsg").hide();
+                $("#successmsg").hide();
+                setTimeout(() => {
+                    $("#registerbtn").html('Register');
+                    $("#registerbtn").removeAttr("disabled")
+                    $("#alertmsg").text("Please fill all fields");
+                    $("#alertmsg").fadeIn(350);
+                }, 500);
+                return;
+            }
+            if (!actuallyReadTos) {
+                $("#alertmsg").hide();
+                $("#successmsg").hide();
+                setTimeout(() => {
+                    $("#registerbtn").html('Register');
+                    $("#registerbtn").removeAttr("disabled")
+                    $("#alertmsg").text("Please read the ToS");
+                    $("#alertmsg").fadeIn(350);
+                }, 500);
+                return;
+            }
+            // disable the button and show loading icon
+            Http.post("auth/register.json", {
+                email: email,
+                discord_id: did,
+                invite: invite
+            }, function(response) {
+                var data = JSON.parse(response);
+                if (!data.success) {
+                    $("#alertmsg").hide();
+                    $("#registerbtn").html('Register');
+                    $("#registerbtn").removeAttr("disabled")
+                    $("#alertmsg").text(data.message)
+                    $("#alertmsg").fadeIn(350);
+                    return;
+                }
+                $("#registerbtn").html('<i class="fas fa-user-check">  </i> Registered');
+                $("#registerbtn").removeClass("bg-gradient-info");
+                $("#registerbtn").addClass("bg-gradient-success");
+                $("#successmsg").text("Successfully registered! API key has been sent to your inbox. Check your spam folder if you don't see it.");
+                $("#successmsg").fadeIn(350);
+                setTimeout(() => {
+                    window.location.href = "login.html";
+                }, 5000);
+            });
+
+
+
+        });
+    </script>
+    <!-- Github buttons -->
+    <script async defer src="assets/js/buttons.js"></script>
+    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="assets/js/material-dashboard.min994f.js?v=3.0.2"></script>
+</body>
+
+
+<!-- Mirrored from https://luarmor.net/signup by HTTrack Website Copier/3.x [XR&CO], Wed, 11 Nov 2026 08:05:48 GMT -->
+</html>

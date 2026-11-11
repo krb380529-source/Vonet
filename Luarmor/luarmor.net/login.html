@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from https://luarmor.net/login by HTTrack Website Copier/3.x [XR&CO], Wed, 11 Nov 2026 08:04:11 GMT -->
+<head>
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Luarmor | Login</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <script src="../challenges.cloudflare.com/turnstile/v0/b/8340802ab0bb/api.js" async="" defer=""></script>
+  <script async="" defer="" src="assets/js/plugins/sweetalert2.all.min.js"></script>
+
+  <!-- Base theme (your landing styles) -->
+  <link rel="stylesheet" href="main_newloginpg.html">
+
+  <style>
+    /* Page layout */
+    .swal2-popup {
+      background: rgb(20, 24, 38) !important;
+      box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+        0 3px 1px -2px rgba(0, 0, 0, 0.2),
+        0 1px 5px 0 rgba(0, 0, 0, 0.12) !important;
+    }
+
+    body {
+      background-color: #13151E;
+      font-family: 'Inter', 'SF Pro Display', -apple-system, sans-serif;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .login-wrap {
+      flex: 1;
+      display: grid;
+      place-items: center;
+      padding: 120px 16px 80px;
+      position: relative;
+      min-height: 70vh;
+    }
+
+    /* optional subtle background video/overlay support */
+    .login-bg-overlay {
+      position: fixed;
+      inset: 0;
+      /* fill the parent */
+      background: url("https://images.unsplash.com/photo-1497294815431-9365093b7331?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80") no-repeat center center;
+      background-size: cover;
+      /* scale while keeping aspect ratio */
+      filter: blur(100px) brightness(0.7);
+      /* make it a less vibrant*/
+      opacity: 0.7;
+      /* soft futuristic glow */
+      transform: scale(1.1);
+      /* prevent blur edges from showing */
+      z-index: -1;
+      /* keep it behind the card */
+      pointer-events: none;
+      /* don’t block clicks */
+    }
+
+    /* Card */
+    .login-card {
+      width: 100%;
+      max-width: 520px;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: var(--shadow-1, 0 25px 50px -12px rgba(0, 0, 0)), 0 0 0 1px rgba(255, 255, 255, .08);
+      background: linear-gradient(145deg, rgba(20, 23, 34, 0.92) 0%, rgba(15, 18, 28, 0.96) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(12px);
+    }
+
+    .login-head {
+      padding: 28px 28px 8px;
+      text-align: center;
+    }
+
+    .login-title {
+      color: #fff;
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin: 0;
+    }
+
+    .login-sub {
+      color: rgba(255, 255, 255, 0.65);
+      font-size: 14px;
+      margin: 8px 0 0 0;
+    }
+
+    .login-body {
+      padding: 24px 28px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    /* Alert banner */
+    .alert {
+      display: none;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 14px;
+      line-height: 1.4;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .alert.show {
+      display: block;
+      animation: fadeIn .25s ease;
+    }
+
+    .alert-danger {
+      background: linear-gradient(145deg, rgba(120, 0, 22, 0.25), rgba(80, 0, 14, 0.25));
+      color: #ffb3c0;
+      border-color: rgba(255, 80, 110, 0.35);
+    }
+
+    .alert-success {
+      background: linear-gradient(145deg, rgba(0, 120, 20, 0.25), rgba(0, 80, 5, 0.25));
+      color: #d3ffb3;
+      border-color: rgba(80, 255, 80, 0.35);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-4px)
+      }
+
+      to {
+        opacity: 1;
+        transform: none
+      }
+    }
+
+    /* Floating label input */
+    .field {
+      position: relative;
+      width: 100%;
+    }
+
+    .input {
+      box-sizing: border-box;
+      /* count padding in width */
+      /* balanced padding */
+      display: block;
+      width: 100%;
+      padding: 16px 14px 14px;
+      border-radius: 12px;
+      outline: 0;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(13, 16, 25, 0.6);
+      color: rgba(255, 255, 255, 0.92);
+      font-size: 15px;
+      transition: border .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+
+    .input::placeholder {
+      color: transparent;
+    }
+
+    .label {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 0 6px;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 14px;
+      pointer-events: none;
+      transition: all .18s ease;
+      background: transparent;
+    }
+
+    .field:has(.input:focus) .label,
+    .field:has(.input:not(:placeholder-shown)) .label {
+      top: -8px;
+      transform: none;
+      font-size: 12px;
+      color: #CABB55;
+      background: #141722;
+      border-radius: 6px;
+    }
+
+    .input:focus {
+      border-color: rgba(202, 187, 85, 0.6);
+      box-shadow: 0 0 0 1px rgba(202, 187, 85, 0.15);
+      background: rgba(13, 16, 25, 0.75);
+    }
+
+    .btn {
+      position: relative;
+      overflow: hidden;
+      user-select: none;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: .2px;
+      padding: 12px 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform .06s ease, background .2s ease, border .2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.18);
+      transform: translateY(-1px);
+    }
+
+    .btn:disabled {
+      opacity: 0.75;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn.popular,
+    .btn.success {
+      background: #22c55e;
+      border-color: #22c55e;
+      color: #323932;
+    }
+
+    .btn.error {
+      background: #b4232a;
+      border-color: #b4232a;
+    }
+
+    /* Login icon & spinner */
+    .icon {
+      width: 18px;
+      height: 18px;
+      display: inline-block;
+    }
+
+    .spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.35);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin .9s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg)
+      }
+    }
+
+
+
+    /* Minor helper */
+    .row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .meta {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.6);
+      text-align: center;
+      margin-top: 6px;
+    }
+
+    .link {
+      color: #CABB55;
+      text-decoration: none;
+    }
+
+    .link:hover {
+      text-decoration: underline;
+    }
+
+    /* Topbar (minimal) */
+    .topbar {
+      background: linear-gradient(90deg, rgba(11, 14, 25, 0.95) 0%, rgba(28, 31, 45, 0.95) 100%);
+      backdrop-filter: blur(10px);
+      position: fixed;
+      width: 95%;
+      max-width: 1100px;
+      height: 56px;
+      left: 50%;
+      transform: translateX(-50%);
+      top: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+      z-index: 100;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #fff;
+      font-weight: 700;
+      letter-spacing: -.2px;
+    }
+
+    .brand .luarmorText {
+      font-size: 18px;
+    }
+
+    @media (max-width:768px) {
+      .login-wrap {
+        padding-top: 100px;
+      }
+    }
+  </style>
+
+  <script>
+    // Early redirect if already authenticated
+    //  if (localStorage.getItem("api_key")) {
+    //    window.location.href = "./dashboard.html";
+    //  }
+  </script>
+</head>
+
+<body>
+  <!-- Minimal topbar -->
+  <nav class="topbar">
+    <div class="navLeft">
+      <img src="newlanding/logo.png" alt="Luarmor Logo" height="32">
+      <span class="luarmorText gradient-text gradient-gold">Luarmor</span>
+    </div>
+    <!-- Add a class "desktop-menu" to the navCenter so we can hide it on mobile -->
+    <div class="navCenter desktop-menu">
+      <ul>
+        <li onclick="window.open('https://docs.luarmor.net/', '_blank')">Docs</li>
+        <li onclick="window.location='login.html'">Dashboard</li>
+        <li onclick="window.open('https://discord.gg/luarmor', '_blank')">Discord</li>
+        <li onclick="window.open('https://docs.luarmor.net/luarmor-user-manual-and-f.a.q', '_blank')">F.A.Q</li>
+        <li onclick="window.location='#prices'">Pricing</li>
+      </ul>
+    </div>
+    <div class="navRight">
+      <button class="signIn" onclick="window.open('login.html', '_blank')">Sign in</button>
+      <button class="signUp" onclick="window.open('signup.html', '_blank')">Sign up</button>
+      <!-- Hamburger button added (hidden by default on desktop) -->
+      <button class="menu-toggle">☰</button>
+    </div>
+  </nav>
+
+  <!-- New mobile dropdown menu (hidden by default) -->
+  <div class="mobile-menu">
+    <ul>
+      <li onclick="window.open('https://docs.luarmor.net/', '_blank'); toggleMobileMenu();">Docs</li>
+      <li onclick="window.location='login.html'; toggleMobileMenu();">Dashboard</li>
+      <li onclick="window.open('https://discord.gg/luarmor', '_blank'); toggleMobileMenu();">Discord</li>
+      <li
+        onclick="window.open('https://docs.luarmor.net/luarmor-user-manual-and-f.a.q', '_blank'); toggleMobileMenu();">
+        F.A.Q</li>
+      <li onclick="window.location='#prices'; toggleMobileMenu();">Pricing</li>
+    </ul>
+  </div>
+
+  <main class="login-wrap">
+    <div class="login-bg-overlay" aria-hidden="true"></div>
+
+    <section class="login-card" role="form" aria-labelledby="login-title">
+      <header class="login-head">
+        <h1 id="login-title" class="login-title">Log in with API key</h1>
+        <p class="login-sub">Paste your 52-character API key to continue.</p>
+      </header>
+
+      <div class="login-body">
+        <!-- Error banner -->
+        <div id="alertmsg" class="alert alert-danger" role="alert" aria-live="polite"></div>
+        <!-- Success banner -->
+        <div id="successmsg" class="alert alert-success" role="alert" aria-live="polite"></div>
+
+
+        <!-- Floating label input -->
+        <div class="field">
+          <input id="apikey" class="input" type="password" inputmode="text" autocomplete="off" placeholder=" "
+            aria-describedby="hint" maxlength="64">
+          <label class="label" for="apikey">API key</label>
+        </div>
+        <div id="hint" class="meta">New user? <a class="link" href="signup.html">Sign up</a></div>
+
+        <!-- Login button -->
+        <button id="loginbtn" class="btn" type="button">
+          <!-- login icon -->
+          <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M10 7V5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-7a2 2 0 0 1-2-2v-2" stroke="currentColor"
+              stroke-width="1.7" stroke-linecap="round" />
+            <path d="M15 12H3m0 0l3-3m-3 3l3 3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+          <span id="btntxt">Log in</span>
+        </button>
+
+        <p class="meta">By continuing you agree to our <a class="link" href="tos.html">Terms</a>.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" style="padding:20px 0 24px; margin-top:0; background-color: rgba(0,0,0,0.8);">
+    <div class="footerContainer">
+      <div class="footerTop">
+        <div class="footerLogo">
+          <img src="newlanding/logo.png" alt="Luarmor Logo" height="32">
+          <span class="luarmorText gradient-text gradient-gold">Luarmor</span>
+        </div>
+        <div class="footerLinks">
+          <div class="linkColumn">
+            <h4>Product</h4>
+            <ul>
+              <li><a href="faq.html">FAQ</a></li>
+              <li><a href="https://docs.luarmor.net/">API Documentation</a></li>
+              <li><a href="https://discord.gg/luarmor">Discord</a></li>
+            </ul>
+          </div>
+          <div class="linkColumn">
+            <h4>Stuff</h4>
+            <ul>
+              <li><a href="tos.html">Terms of Service</a></li>
+              <li><a href="tos.html">Privacy Policy</a></li>
+              <li><a href="https://discord.gg/luarmor">Contact</a></li>
+              <li><a href="submit_request.html">Submit a Request / Suggestion</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footerBottom">
+        <p>thanks chatgpt.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Utilities
+    const $ = (sel, root = document) => root.querySelector(sel);
+
+    const btn = $("#loginbtn");
+    const btnText = $("#btntxt");
+    const input = $("#apikey");
+    const alertBox = $("#alertmsg");
+    const successBox = $("#successmsg");
+
+
+
+    // HTTP GET with auth header (semantics preserved)
+    const Http = {
+      initSession(api_key, cb, cfToken) {
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", "gateway_init_web_session.html", !!cb);
+        xhr.setRequestHeader("Authorization", api_key);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        if (cfToken) {
+          xhr.setRequestHeader("x-turnstile-token", cfToken);
+        }
+        if (cb) {
+          xhr.onload = () => cb(xhr.responseText);
+        }
+        xhr.send();
+        if (!cb) return xhr.responseText;
+      }
+    };
+
+    function showError(msg) {
+      alertBox.textContent = msg;
+      alertBox.classList.add("show");
+      // visual button error flash (optional)
+      setTimeout(() => btn.classList.remove("error"), 400);
+    }
+    function clearError() {
+      alertBox.classList.remove("show");
+      alertBox.textContent = "";
+    }
+
+    function showSuccess(msg) {
+      successBox.textContent = msg;
+      successBox.classList.add("show");
+      // visual button error flash (optional)
+    }
+    function clearSuccess() {
+      successBox.classList.remove("show");
+      successBox.textContent = "";
+    }
+
+    function setLoading(on) {
+      if (on) {
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner" aria-hidden="true"></span><span>Logging in…</span>';
+      } else {
+        btn.disabled = false;
+        btn.innerHTML = `
+          <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M10 7V5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-7a2 2 0 0 1-2-2v-2"
+                  stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+            <path d="M15 12H3m0 0l3-3m-3 3l3 3"
+                  stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span id="btntxt">Log in</span>`;
+      }
+    }
+
+    function validateKey(k) {
+      return typeof k === "string" && k.length === 52;
+    }
+
+    function handleLoginClick(e) {
+      clearError();
+      clearSuccess();
+
+      const key = input.value.trim();
+
+      // quick client validation
+      if (!validateKey(key)) {
+        setLoading(true);
+        setTimeout(() => {
+          setLoading(false);
+          showError("Invalid API key. It should be exactly 52 characters.");
+        }, 350);
+        return;
+      }
+
+      setLoading(true);
+
+      Swal.fire({
+        html: '<div id="cf-container"></div>',
+        width: '380px',
+        showConfirmButton: false,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+        didOpen: () => {
+          turnstile.render('#cf-container', {
+            sitekey: '0x4AAAAAAA8DOlG4zxR4fbCf',
+            theme: 'dark',
+            callback: token => {
+              Swal.close();
+
+              Http.initSession(key, function (res) {
+                try {
+                  const data = JSON.parse(res);
+                  if (!data.success) {
+                    setLoading(false);
+                    showError(data.message || "Login failed. Please check your API key and try again.");
+                    return;
+                  }
+                  showSuccess(data.message || "Login successful. Redirecting in 2 seconds..");
+                  // Success – persist and style success state
+                  localStorage.setItem("api_key", key);
+                  localStorage.setItem("userDetails", res);
+
+                  //  btn.classList.add("success");
+                  btn.innerHTML = `
+            <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>Logged in</span>
+          `;
+
+                  setTimeout(() => {
+                      window.location.href = "dashboard.html";
+                  }, 900);
+                } catch (err) {
+                  setLoading(false);
+                  showError("Unexpected response from server. Please try again.");
+                }
+              }, token);
+            },
+            'error-callback': () => {
+              Swal.close();
+              console.error("Turnstile failed");
+              setLoading(false);
+              showError("CAPTCHA verification failed. Please login again.");
+
+            }
+          });
+          let popup = Swal.getPopup();
+
+
+          const icons = popup.querySelectorAll('.swal2-html-container');
+          icons.forEach(icon => {
+            icon.style.setProperty('opacity', '1', 'important');
+          });
+        }
+      });
+      return;
+
+    }
+
+    // Submit on Enter
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        btn.click();
+      }
+    });
+
+    btn.addEventListener("click", handleLoginClick);
+    function toggleMobileMenu() {
+      var mobileMenu = document.querySelector('.mobile-menu');
+      mobileMenu.classList.toggle('open');
+    }
+
+    // Attach click listener to the hamburger button
+    document.querySelector('.menu-toggle').addEventListener('click', toggleMobileMenu);
+
+
+    // Accessibility: announce errors if focusing input again
+    input.addEventListener("focus", clearError);
+
+    if (localStorage.getItem("api_key")) {
+      // set the input value to the stored key (masked)
+
+
+      input.value = localStorage.getItem("api_key");
+      btnText.textContent = "Log in";
+
+      // Optionally, you can automatically focus the input field
+      input.focus();
+
+    }
+
+
+  </script>
+</body>
+
+
+<!-- Mirrored from https://luarmor.net/login by HTTrack Website Copier/3.x [XR&CO], Wed, 11 Nov 2026 08:05:32 GMT -->
+</html>

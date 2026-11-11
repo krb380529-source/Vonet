@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from https://luarmor.net/ by HTTrack Website Copier/3.x [XR&CO], Wed, 11 Nov 2026 08:02:56 GMT -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <!-- ===============================================-->
+    <!--    Document Title-->
+    <!-- ===============================================-->
+    <title>Luarmor | Lua Whitelist Service</title>
+
+
+    <!-- ===============================================-->
+    <!--    Favicons-->
+    <!-- ===============================================-->
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/lth.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/lth.png">
+    <meta name="theme-color" content="#d4af48">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Luarmor - Lua Whitelist Service" />
+    <meta property="og:site_name" content="👑 Luarmor" />
+    <meta property="og:description" content="Luarmor is a script whitelisting service made for Roblox.
+
+    Check out our website for details
+    https://luarmor.net/" />
+    <meta property="og:url" content="index.html" />
+    <meta property="og:image" content="../media.discordapp.net/attachments/973020490530689094/1030611589302333481/lth.png" />
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="newlanding/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="topbar">
+  <div class="navLeft">
+    <img src="newlanding/logo.png" alt="Luarmor Logo" height="32">
+    <span class="luarmorText gradient-text gradient-gold">Luarmor</span>
+  </div>
+  <!-- Add a class "desktop-menu" to the navCenter so we can hide it on mobile -->
+  <div class="navCenter desktop-menu">
+    <ul>
+      <li onclick="window.open('https://docs.luarmor.net/', '_blank')">Docs</li>
+      <li onclick="window.location='login.html'">Dashboard</li>
+      <li onclick="window.open('https://discord.gg/luarmor', '_blank')">Discord</li>
+      <li onclick="window.open('https://docs.luarmor.net/luarmor-user-manual-and-f.a.q', '_blank')">F.A.Q</li>
+      <li onclick="window.location='#prices'">Pricing</li>
+    </ul>
+  </div>
+  <div class="navRight">
+    <button class="signIn" onclick="window.open('login.html', '_blank')">Sign in</button>
+    <button class="signUp" onclick="window.open('signup.html', '_blank')">Sign up</button>
+    <!-- Hamburger button added (hidden by default on desktop) -->
+    <button class="menu-toggle">☰</button>
+  </div>
+</nav>
+
+<!-- New mobile dropdown menu (hidden by default) -->
+<div class="mobile-menu">
+  <ul>
+    <li onclick="window.open('https://docs.luarmor.net/', '_blank'); toggleMobileMenu();">Docs</li>
+    <li onclick="window.location='login.html'; toggleMobileMenu();">Dashboard</li>
+    <li onclick="window.open('https://discord.gg/luarmor', '_blank'); toggleMobileMenu();">Discord</li>
+    <li onclick="window.open('https://docs.luarmor.net/luarmor-user-manual-and-f.a.q', '_blank'); toggleMobileMenu();">F.A.Q</li>
+    <li onclick="window.location='#prices'; toggleMobileMenu();">Pricing</li>
+  </ul>
+</div>
+
+
+    <div class="heroSection">
+
+	<video autoplay muted loop playsinline class="hero-video">
+    <source src="thing.mp4" type="video/mp4">
+    <!-- Fallback text/image if video doesn't load -->
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Dark overlay to shade the video -->
+  <div class="hero-overlay"></div>
+
+        <div class="heroContent">
+            <div class="heroLeft">
+                <h1 class="heroTitle">Protect & Monetize your code with <span
+                        class="gradient-text gradient-gold">Luarmor</span></h1>
+                <p class="heroDescription">The standard and go-to solution for protecting, monetizing, and managing your
+                    scripts easily.</p>
+            </div>
+        </div>
+        <div class="dashboardContainer">
+            <div class="dashboardWrapper" style="background:rgb(20, 23, 36)">
+                <img src="newlanding/dashboard.png" alt="Luarmor Dashboard" class="dashboardImage">
+                <img src="newlanding/rewardspage.html" alt="Luarmor Dashboard" class="dashboardImage">
+            </div>
+        </div>
+    </div>
+    <div class="featuresSection">
+        <div class="featuresContainer">
+            <div class="featuresLeft">
+                <h2 class="featuresTitle">
+                    A <span class="gradient-text gradient-purple">stability-first</span><br>
+                    approach to whitelist<br>
+                    security.
+                </h2>
+                <div class="subtitleWrapper">
+                    <p class="featuresDescription">
+                        Built with <span class="bold">security</span> and <span class="bold">stability</span> in mind.
+                    </p>
+                    <a href="https://docs.luarmor.net/" class="learnMore">See how it exactly works →</a>
+                </div>
+            </div>
+            <div class="featuresRight">
+                <div class="mapWrapper">
+                    <img src="newlanding/map.html" alt="World Map" class="worldMap">
+                    <div class="mapOverlay"></div>
+                    <span class="mapCaption">Luarmor servers on world map above</span>
+                </div>
+            </div>
+            <div class="featureCards">
+                <div class="featureCard glass">
+                    <div class="iconCircle">⚡</div>
+                    <h3>Super Fast</h3>
+                    <p>Luarmor is extremely fast and stable because of its multi-server structure and optimized design
+                        that ensures 0% error rate during authentication.</p>
+                </div>
+                <div class="featureCard glass">
+                    <div class="iconCircle">🔧</div>
+                    <h3>Easy to Integrate</h3>
+                    <p>All you have to do is to upload your script to dashboard and that's it. Luarmor will embed the
+                        whitelist inside your script and obfuscate it using Luraph™️</p>
+                </div>
+                <div class="featureCard glass">
+                    <div class="iconCircle">🔒</div>
+                    <h3>Top Security</h3>
+                    <p>Luarmor utilizes commercial methods to keep your script secure. We write the code that re-writes
+                        your code in a secure way.</p>
+                </div>
+                <div class="featureCard glass">
+                    <div class="iconCircle">📈</div>
+                    <h3>Reliable</h3>
+                    <p>Our systems operate with 99.9%+ uptime, including script stability. With Luarmor, your users will
+                        never have whitelist related errors.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="servicesSection">
+        <div class="servicesContainer">
+            <div class="servicesHeader">
+                <h2 class="servicesTitle">
+                    Powerful <span class="gradient-text">Features</span>
+                    You'll Love
+                </h2>
+                <p class="heroDescription">
+                    Everything you need to manage your scripts and users automatically.
+                </p>
+            </div>
+            <div class="serviceCards">
+                <div class="featureCard glass"
+                    onclick="window.open('https://docs.luarmor.net/luarmor-user-manual-and-f.a.q#discord-bot-configuration', '_blank')">
+                    <div class="cardGif">
+                        <img src="newlanding/discordbotgif.gif" alt="Discord Bot Demo">
+                    </div>
+                    <div class="cardContent">
+                        <div class="cardHeader">
+                            <div class="iconCircle">🤖</div>
+                            <h3>Discord Bot</h3>
+                        </div>
+                        <p>Luarmor comes with a ready-to-use discord bot with a mini control panel for your users where
+                            they can redeem keys, reset HWID and more. Click to read more.</p>
+                    </div>
+                </div>
+
+                <div class="featureCard glass"
+                    onclick="window.open('https://docs.luarmor.net/luarmor-user-manual-and-f.a.q#id-3-whitelist-users', '_blank')">
+                    <div class="cardGif">
+                        <img src="newlanding/gen.gif" alt="Key Stocking Demo">
+                    </div>
+                    <div class="cardContent">
+                        <div class="cardHeader">
+                            <div class="iconCircle">🔑</div>
+                            <h3>Key Stocking</h3>
+                        </div>
+                        <p>You can mass generate day-locked or lifetime keys & export them to list them on your sellix /
+                            shoppy or whatever platform you are using.</p>
+                    </div>
+                </div>
+
+                <div class="featureCard glass"
+                    onclick="window.open('https://docs.luarmor.net/luarmor-user-manual-and-f.a.q#runtime-variables', '_blank')">
+                    <div class="cardGif">
+                        <img src="newlanding/runtimevar.png" alt="Runtime Vars Demo">
+                    </div>
+                    <div class="cardContent">
+                        <div class="cardHeader">
+                            <div class="iconCircle">📜</div>
+                            <h3>Runtime Variables</h3>
+                        </div>
+                        <p>Runtime variables allow you to access key-specific data such as discord id, note, expiry date
+                            and more. Allowing you to add custom logic for specific users.</p>
+                    </div>
+                </div>
+
+                <div class="featureCard glass">
+                    <div class="cardGif">
+                        <img src="newlanding/killswitch.gif" alt="Killswitch Demo">
+                    </div>
+                    <div class="cardContent">
+                        <div class="cardHeader">
+                            <div class="iconCircle">🛑</div>
+                            <h3>One Click Kill Switch</h3>
+                        </div>
+                        <p>You can disable, delete, update your scripts anytime you want, and it will immediately take
+                            effect for future executions.</p>
+                    </div>
+                </div>
+
+                <div class="featureCard glass"
+                    onclick="window.open('https://docs.luarmor.net/source-locker', '_blank')">
+                    <div class="cardGif">
+                        <img src="newlanding/locker.gif" alt="Encrypted Backups Demo">
+                    </div>
+                    <div class="cardContent">
+                        <div class="cardHeader">
+                            <div class="iconCircle">🔒</div>
+                            <h3>Encrypted Backups</h3>
+                        </div>
+                        <p>Luarmor gives you the option to encrypt & store your code just in case you ever lose access
+                            to source, or want to revert to an old version of your script. [read more].</p>
+                    </div>
+                </div>
+
+                <div class="featureCard glass"
+                    onclick="window.open('https://docs.luarmor.net/ad-system-rewards', '_blank')">
+                    <div class="cardGif">
+                        <img src="newlanding/adsys.gif" alt="Ad System Demo">
+                    </div>
+                    <div class="cardContent">
+                        <div class="cardHeader">
+                            <div class="iconCircle">💵</div>
+                            <h3>Ad Key System</h3>
+                        </div>
+                        <p>Luarmor has a built-in, compatible and customizable ad link system with an effective
+                            anti-bypass, protecting your revenue and making everything easier.</p>
+                    </div>
+                </div>
+
+                <div class="featureCard glass"
+                    onclick="window.open('https://docs.luarmor.net/luarmor-user-manual-and-f.a.q#key-check-library', '_blank')">
+                    <div class="cardGif">
+                        <img src="newlanding/keyapi.png" alt="Key Check API Demo">
+                    </div>
+                    <div class="cardContent">
+                        <div class="cardHeader">
+                            <div class="iconCircle">🗝️</div>
+                            <h3>Key Check API</h3>
+                        </div>
+                        <p>We have a Lua API that allows you to check key details before actually running the obfuscated
+                            script, allowing you to implement custom logic without kicking the user. Click to read more.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="featureCard glass"
+                    onclick="window.open('https://docs.luarmor.net/luarmor-user-manual-and-f.a.q#id-2-upload-your-script', '_blank')">
+                    <div class="cardGif">
+                        <img src="newlanding/integration.png" alt="bb">
+                    </div>
+                    <div class="cardContent">
+                        <div class="cardHeader">
+                            <div class="iconCircle">🛡️</div>
+                            <h3>Automatic Integration</h3>
+                        </div>
+                        <p>When you upload your script on dashboard, it will have a whitelist automatically embedded
+                            inside it, and get obfuscated with the industry standard Luraph. Then you just run the
+                            loadstring and that's it.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="statsSection">
+        <div class="container">
+            <div class="statsHeader">
+                <h2 class="heroTitle">Here are our stats</h2>
+                <p class="heroDescription">Actively used by thousands of people.</p>
+            </div>
+            <div class="statsGrid">
+                <div class="statCard glass">
+                    <h3>1.2M+</h3>
+                    <p>Active keys</p>
+                </div>
+                <div class="statCard glass">
+                    <h3>600M+</h3>
+                    <p>Executions every month</p>
+                </div>
+                <div class="statCard glass">
+                    <h3>$315K+</h3>
+                    <p>Generated in Ad Revenue!
+                        <small style="display: block; font-size: 0.75em; color: #666; margin-top: 5px;">
+                            * since November 2024.
+                        </small>
+                    <p>
+                </div>
+
+            </div>
+            <br> </br>
+            <small style="display: block; font-size: 0.9em; color: #464646; margin-top: 5px;">
+                * As of August 2025. Ad revenue is an estimate with <br />average monetization settings assumed for each
+                user.
+            </small>
+        </div>
+    </div>
+    <div class="pricingSection" id="prices">
+        <div class="container">
+            <div class="pricingHeader">
+                <h2 class="heroTitle">Simple and Flat Pricing</h2>
+                <p class="heroDescription">Choose the plan that's right for you.</p>
+            </div>
+            <div class="pricingGrid">
+                <div class="priceCard glass">
+                    <h3>Basic</h3>
+                    <p class="priceSubtitle">If you just started developing scripts, this plan is ideal for you. You can
+                        always switch to a higher plan anytime you want!</p>
+                    <div class="priceAmount">
+                        <span class="price">$15</span>
+                        <span class="period">/month</span>
+                    </div>
+                    <ul class="priceFeatures">
+                        <li class="included">✓ API & Bot access</li>
+                        <li class="included">✓ Webhook logs</li>
+                        <li class="included">✓ Up to 200 keys at once</li>
+                        <li class="included">✓ Unlimited obf per month</li>
+                        <li class="included">✓ Up to 2 scripts at once</li>
+                        <li class="included">✓ 1 project folder</li>
+                        <li class="included">✓ Ad system (rewards)</li>
+                        <li class="excluded">× Keyless (FFA) mode</li>
+                    </ul>
+                    <button class="priceButton" onclick="openPaymentModal()">Buy Invite</button>
+                </div>
+
+                <div class="priceCard glass">
+                    <h3>Premium</h3>
+                    <p class="priceSubtitle">Best plan for most users. If your script hub growing fast, this plan is
+                        recommended.</p>
+                    <div class="priceAmount">
+                        <span class="price">$25</span>
+                        <span class="period">/month</span>
+                    </div>
+                    <ul class="priceFeatures">
+                        <div class="popularBadge">Most Popular</div>
+                        <li class="included">✓ API & Bot access</li>
+                        <li class="included">✓ Webhook logs</li>
+                        <li class="included">✓ Up to <b style="color:rgba(226, 226, 226, 0.958)">1,000</b> keys at once
+                        </li>
+                        <li class="included">✓ Unlimited obf per month</li>
+                        <li class="included">✓ Up to 8 scripts at once</li>
+                        <li class="included">✓ 3 project folders</li>
+                        <li class="included">✓ Ad system (rewards)</li>
+                        <li class="included">✓ Keyless (FFA) mode</li>
+                    </ul>
+                    <button class="priceButton popular" onclick="openPaymentModal()">Buy Invite</button>
+                </div>
+
+                <div class="priceCard glass popular">
+                    <h3>Pro</h3>
+                    <p class="priceSubtitle">Everything in premium with higher usage limits. Recommended for high
+                        quality scripts with hundreds of buyers.</p>
+                    <div class="priceAmount">
+                        <span class="price">$40</span>
+                        <span class="period">/month</span>
+                    </div>
+                    <ul class="priceFeatures">
+                        <li class="included">✓ API & Bot access</li>
+                        <li class="included">✓ Webhook logs</li>
+                        <li class="included">✓ Up to <b style="color:rgb(224, 138, 255)">10,000</b> keys at once</li>
+                        <li class="included">✓ <b style="color:rgb(224, 138, 255)">Unlimited</b> obf per month</li>
+                        <li class="included">✓ Up to <b style="color:rgb(224, 138, 255)">18</b> scripts at once</li>
+                        <li class="included">✓ 6 project folders</li>
+                        <li class="included">✓ Ad system (rewards)</li>
+                        <li class="included">✓ Keyless (FFA) mode</li>
+                    </ul>
+                    <button class="priceButton" onclick="openPaymentModal()">Buy Invite</button>
+                </div>
+
+                <div class="priceCard glass">
+                    <h3>Enterprise</h3>
+                    <p class="priceSubtitle">For large hubs with specialized needs. Enterprise users can request custom
+                        features.</p>
+                    <div class="priceAmount">
+                        <span class="price"></span>
+                        <span class="period">Crypto Currencies only</span>
+                    </div>
+                    <ul class="priceFeatures">
+                        <li class="included">💎 API ratelimit bypass</li>
+                        <li class="included">💎 Advanced access control methods
+                            <small style="display: block; font-size: 0.9em; color: #666; margin-top: 5px;">
+                                * e.g max instance limit per key, execution cap, hwid-less (only key) execution, clonned
+                                emulator blocking / allowing etc.
+                            </small>
+                        </li>
+                        <li class="included">💎 Custom URLs in ad system
+                            <small style="display: block; font-size: 0.9em; color: #666; margin-top: 5px;">
+                                * e.g ads.luarmor.net/godhub
+                            </small>
+                        </li>
+
+                        <li class="included">✓ 50k keys & 60 scripts</li>
+                        <li class="included">✓ 10 projects & unlimited obf.</li>
+                        <li class="included">+ Everything in Pro</li>
+                    </ul>
+                    <button class="priceButton" onclick="window.open('https://discord.gg/luarmor', '_blank')">Contact
+                        Us</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="footerContainer">
+            <div class="footerTop">
+                <div class="footerLogo">
+                    <img src="newlanding/logo.png" alt="Luarmor Logo" height="32">
+                    <span class="luarmorText gradient-text gradient-gold">Luarmor</span>
+                </div>
+                <div class="footerLinks">
+                    <div class="linkColumn">
+                        <h4>Product</h4>
+                        <ul>
+                            <li><a href="faq.html">FAQ</a></li>
+                            <li><a href="https://docs.luarmor.net/">API Documentation</a></li>
+                            <li><a href="https://discord.gg/luarmor">Discord</a></li>
+                        </ul>
+                    </div>
+                    <div class="linkColumn">
+                        <h4>Stuff</h4>
+                        <ul>
+                            <li><a href="tos.html">Terms of Service</a></li>
+                            <li><a href="tos.html">Privacy Policy</a></li>
+                            <li><a href="https://discord.gg/luarmor">Contact</a></li>
+                            <li><a href="submit_request.html">Submit a Request / Suggestion</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footerBottom">
+                <p>Landing page designed by the best front end designer Riley (real AF)</p>
+            </div>
+        </div>
+    </footer>
+    <!-- Overlay -->
+    <div id="payment-modal-overlay" class="modal-overlay">
+        <!-- Modal Dialog -->
+        <div class="modal-dialog">
+            <button class="modal-close" onclick="closePaymentModal()">×</button>
+            <h2>Select Payment Method</h2>
+            <p>* You will receive an invite code that can be used to SIGN UP and have 30 days of access, or EXTEND an existing account for +30 days.<br></br>* Multiple invite codes of the same plan can be redeemed at once to stack days. <br></br>* Invite codes do not have expiry dates, they can be redeemed anytime.<br></br>* You can only upgrade/downgrade plans in the last 7 days of your current plan. You do so by redeeming the invite code of the new plan. You will have +30 days and your plan will be immediately changed.</p>
+
+            <div class="payment-options">
+                <button class="payment-button crypto" onclick="redirectToCrypto()">Crypto (Official Store)</button>
+<button class="payment-button card" onclick="redirectToCard2()">💳 Card, pix, apple / google pay (Reseller 1)</button>
+                <button class="payment-button card" onclick="redirectToCard()">💳 Debit/Credit Card / ApplePay / GPay (Reseller 2)</button>
+		 <button class="payment-button card" onclick="redirectToPaypal()">PayPal (Reseller)</button>           
+	<button class="payment-button card" onclick="redirectToRus()">[RU] FunPay (Reseller)</button> 
+* If a reseller is out of stock, check the other reseller (i.e Reseller 1 instead of 2, or vice versa). For crypto purchases, official store is recommended.
+</div>
+        </div>
+    </div>
+
+    <script>
+        function openPaymentModal() {
+            document.getElementById('payment-modal-overlay').style.display = 'flex';
+        }
+
+        function closePaymentModal() {
+            document.getElementById('payment-modal-overlay').style.display = 'none';
+        }
+
+        function redirectToCrypto() {
+            window.open('crypto.html', '_blank');
+        }
+        function redirectToCard() {
+window.open('https://angxlzz.store/product/luarmor/', '_blank');
+//            window.open('https://angxlzzstore.sellhub.cx/product/luarmor/', '_blank');
+        }
+	function redirectToPaypal() {
+		window.open('https://zephyrion.sell.app/', '_blank');
+	}
+
+	function redirectToRus() {
+		window.open('https://funpay.com/en/users/7412687/', '_blank');
+	}	
+
+function redirectToCard2() {
+window.open('https://fluxmarket.to/luarmor', '_blank');
+        }
+
+
+   function toggleMobileMenu() {
+    var mobileMenu = document.querySelector('.mobile-menu');
+    mobileMenu.classList.toggle('open');
+  }
+  
+  // Attach click listener to the hamburger button
+  document.querySelector('.menu-toggle').addEventListener('click', toggleMobileMenu);
+
+    </script>
+</body>
+
+
+<!-- Mirrored from https://luarmor.net/ by HTTrack Website Copier/3.x [XR&CO], Wed, 11 Nov 2026 08:04:10 GMT -->
+</html>
